@@ -1,0 +1,88 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/images/background.png",
+                "type": "image",
+                "key": "background"
+            },
+            {
+                "url": "assets/images/ball_1.png",
+                "type": "image",
+                "key": "ball_1"
+            },
+            {
+                "url": "assets/images/ball_2.png",
+                "type": "image",
+                "key": "ball_2"
+            },
+            {
+                "url": "assets/images/ball_3.png",
+                "type": "image",
+                "key": "ball_3"
+            },
+            {
+                "url": "assets/images/ball_4.png",
+                "type": "image",
+                "key": "ball_4"
+            },
+            {
+                "url": "assets/images/ball_5.png",
+                "type": "image",
+                "key": "ball_5"
+            },
+            {
+                "url": "assets/images/bullet.png",
+                "type": "image",
+                "key": "bullet"
+            },
+            {
+                "url": "src/scripts/GameManager.js",
+                "type": "script",
+                "key": "GameManager"
+            },
+            {
+                "url": "src/scripts/InputManager.js",
+                "type": "script",
+                "key": "InputManager"
+            },
+            {
+                "url": "src/scripts/LevelManager.js",
+                "type": "script",
+                "key": "LevelManager"
+            },
+            {
+                "url": "src/scenes/Result.js",
+                "type": "sceneFile",
+                "key": "Result"
+            },
+            {
+                "url": "src/scripts/SocketManager.js",
+                "type": "script",
+                "key": "SocketManager"
+            },
+            {
+                "url": "src/scripts/SoundManager.js",
+                "type": "script",
+                "key": "SoundManager"
+            },
+            {
+                "url": "assets/images/tank.png",
+                "type": "image",
+                "key": "tank"
+            },
+            {
+                "url": "src/scripts/TweenManager.js",
+                "type": "script",
+                "key": "TweenManager"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

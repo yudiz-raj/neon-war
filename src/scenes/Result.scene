@@ -1,0 +1,79 @@
+{
+    "id": "4d72f9a9-67d2-4e31-ba59-0a10b568d201",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Result",
+        "borderWidth": 1920,
+        "borderHeight": 1080
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "1b56344f-1f63-4148-ad72-b18382bb26c4",
+            "label": "background",
+            "texture": {
+                "key": "background"
+            },
+            "x": 960,
+            "y": 540,
+            "scaleX": 3,
+            "scaleY": 3,
+            "alpha": 0.5,
+            "alphaTopLeft": 0.5,
+            "alphaTopRight": 0.5,
+            "alphaBottomLeft": 0.5,
+            "alphaBottomRight": 0.5
+        },
+        {
+            "type": "Rectangle",
+            "id": "5da6b5d9-4d3b-4b94-9d69-1f14295c36d4",
+            "label": "warArea",
+            "scope": "CLASS",
+            "x": 635,
+            "y": 22,
+            "originX": 0,
+            "originY": 0,
+            "isFilled": true,
+            "fillColor": "#000000",
+            "fillAlpha": 0.5,
+            "strokeColor": "#da9303",
+            "lineWidth": 3,
+            "isStroked": true,
+            "width": 650,
+            "height": 980
+        },
+        {
+            "type": "Image",
+            "id": "33f2a639-67e0-4db4-a566-2ab9d8e2deb9",
+            "label": "tank",
+            "texture": {
+                "key": "tank"
+            },
+            "x": 960,
+            "y": 810,
+            "scaleX": 0.9,
+            "scaleY": 0.9
+        },
+        {
+            "type": "Text",
+            "id": "c8974223-00a1-4082-8ced-24befa914e8f",
+            "label": "replay_button",
+            "scope": "CLASS",
+            "x": 960,
+            "y": 1038,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Replay",
+            "fontSize": "60px"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 4
+    }
+}
