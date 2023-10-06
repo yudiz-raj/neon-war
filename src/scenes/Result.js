@@ -61,16 +61,14 @@ class Result extends Phaser.Scene {
 	/* START-USER-CODE */
 
 	// Write your code here
-	init(score){
+	init(score) {
 		this.score = score;
-		console.table(this.score);
 	}
 
 	create() {
-
 		this.editorCreate();
 		// this.cameras.main.shake(500, 0.01);
-		this.replay_button.setInteractive().on("pointerdown", ()=>{
+		this.replay_button.setInteractive().on("pointerdown", () => {
 			this.scene.stop("Result");
 			this.scene.start("Level");
 		})
@@ -79,7 +77,6 @@ class Result extends Phaser.Scene {
 		this.add.text(960, 540, `Best Score: ${this.score.nBestScore}`, { "fontSize": "60px" }).setOrigin(0.5, 0.5);
 
 	}
-
 	/* END-USER-CODE */
 }
 

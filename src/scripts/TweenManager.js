@@ -14,7 +14,8 @@ class TweenManager {
                 bomb.body.setCircle(20, 12, 12);
                 bomb.body.setCollideWorldBounds();
                 bomb.body.setGravityY(1000);
-                tank.x <= 960 ? bomb.body.setVelocity(-200, -200) : bomb.body.setVelocity(200, -200);
+                const nRandomVelocity = Math.floor(Math.random() * (300 - (-300))) + (-300);
+                bomb.body.setVelocity(nRandomVelocity, -200);
                 bomb.body.setBounce(1);
             }
         });

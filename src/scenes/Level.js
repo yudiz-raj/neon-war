@@ -109,6 +109,24 @@ class Level extends Phaser.Scene {
 		this.tank.body.setSize(130, 200);
 		this.tank.body.setOffset(190, 255);
 	}
+	scroll() {
+		this.interactiveArea = this.dragArea;
+		this.interactiveArea.on("pointerdown", () => {
+			this.isPointerDown = true;
+			this.interval = setInterval(() => {
+				this.setBullet();
+			}, 300);
+		});
+		this.input.on("pointerup", () => {
+			this.isPointerDown = false;
+			clearInterval(this.interval);
+		});
+		this.interactiveArea.on("pointermove", (pointer) => {
+			if (this.isPointerDown) {
+				this.tank.x = pointer.x;
+			}
+		});
+	}
 	create() {
 		this.editorCreate();
 		this.nScore = 0;
@@ -137,8 +155,29 @@ class Level extends Phaser.Scene {
 			const popUpText = this.add.text(bomb.x, bomb.y + 20, "+2", { "fontSize": 60 }).setOrigin(0.5, 0).setAngle(-10);
 			this.oTweenManager.popUpAnimation(popUpText);
 			bullet.destroy();
-			bomb.destroy();
-			console.log("totle bobmb: ", this.bombGroup.children.entries.length);
+			switch (bomb.texture.key) {
+				case "ball_1":
+					bomb.destroy();
+					break;
+				case "ball_2":
+					this.controlBombVelocity(bomb);
+					bomb.setTexture("ball_1");
+					break;
+				case "ball_3":
+					this.controlBombVelocity(bomb);
+					bomb.setTexture("ball_1");
+					break;
+				case "ball_4":
+					this.controlBombVelocity(bomb);
+					bomb.setTexture("ball_2");
+					break;
+				case "ball_5":
+					this.controlBombVelocity(bomb);
+					bomb.setTexture("ball_3");
+					break;
+				default:
+					break;
+			}
 			if (this.container_Bombs.list.length == 0) {
 				this.nLevelCount += 1;
 				this.checkForLevel();
@@ -159,7 +198,8 @@ class Level extends Phaser.Scene {
 				nBestScore = this.nScore;
 			}
 			let nScore = this.nScore;
-			this.cameras.main.shake(800, 0.01);
+			this.cameras.main.shake(800, 0.006);
+			this.cameras.main.alpha = 0.5;
 			setTimeout(() => {
 				this.scene.stop("Level");
 				this.scene.start("Result", { nScore, nBestScore });
@@ -170,10 +210,7 @@ class Level extends Phaser.Scene {
 		if (this.nLevelCount <= 4) {
 			let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
 			let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
-			// setTimeout(() => {
-			// console.log(this.nLevelCount, nNumberofBombs);
 			this.setBombGenerator(nNumberofBombs, bombsData, 1);
-			// }, 1000);
 		} else {
 			clearInterval(this.interval);
 			this.container_Bombs.list.forEach((otherBombs) => {
@@ -192,7 +229,7 @@ class Level extends Phaser.Scene {
 		}
 	}
 	setBombGenerator(nNumberofBombs, bombsData, i) {
-		const nRandomX = Math.floor(Math.random() * (1300 - 755)) + 755;
+		const nRandomX = Math.floor(Math.random() * (1215 - 705)) + 705;
 		const nRandomY = Math.floor(Math.random() * (407 - 115)) + 115;
 		const generator = this.add.image(nRandomX, nRandomY, "bullet").setScale(0.5, 0.5);
 		generator.tintFill = true;
@@ -207,26 +244,22 @@ class Level extends Phaser.Scene {
 		this.oTweenManager.bombAnimation(bomb, generator, this.tank);
 		i++;
 		i <= nNumberofBombs ?
-			setTimeout(() => { this.setBombs(nNumberofBombs, bombsData, generator, i) }, 800) :
+			this.setBombs(nNumberofBombs, bombsData, generator, i) :
 			setTimeout(() => { generator.destroy(); }, 500);
 	}
-	scroll() {
-		this.interactiveArea = this.dragArea;
-		this.interactiveArea.on("pointerdown", () => {
-			this.isPointerDown = true;
-			this.interval = setInterval(() => {
-				this.setBullet();
-			}, 300);
-		});
-		this.input.on("pointerup", () => {
-			this.isPointerDown = false;
-			clearInterval(this.interval);
-		});
-		this.interactiveArea.on("pointermove", (pointer) => {
-			if (this.isPointerDown) {
-				this.tankGroup.children.entries[0].x = pointer.x;
-			}
-		});
+	controlBombVelocity(bomb) {
+		if (bomb.body.velocity.x < 0) {
+			bomb.body.velocity.x = -150;
+		}
+		if (bomb.body.velocity.x > 0) {
+			bomb.body.velocity.x = 150;
+		}
+		if (bomb.body.velocity.y < 0) {
+			bomb.body.velocity.y += 300;
+		}
+		if (bomb.body.velocity.x > 0) {
+			bomb.body.velocity.y -= 300;
+		}
 	}
 	update() {
 		if (this.bulletGroup.children.entries.length > 0) {
