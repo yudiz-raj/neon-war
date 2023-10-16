@@ -2,11 +2,6 @@
     "section1": {
         "files": [
             {
-                "url": "assets/images/background.png",
-                "type": "image",
-                "key": "background"
-            },
-            {
                 "url": "assets/images/ball_1.png",
                 "type": "image",
                 "key": "ball_1"
@@ -32,9 +27,44 @@
                 "key": "ball_5"
             },
             {
+                "url": "assets/images/game over/black-layer.png",
+                "type": "image",
+                "key": "black-layer"
+            },
+            {
+                "url": "assets/images/game play/bomb-1.png",
+                "type": "image",
+                "key": "bomb-1"
+            },
+            {
+                "url": "assets/images/game play/bomb-2.png",
+                "type": "image",
+                "key": "bomb-2"
+            },
+            {
+                "url": "assets/images/game play/bomb-3.png",
+                "type": "image",
+                "key": "bomb-3"
+            },
+            {
+                "url": "assets/images/game play/bomb-4.png",
+                "type": "image",
+                "key": "bomb-4"
+            },
+            {
+                "url": "assets/images/game play/bomb-5.png",
+                "type": "image",
+                "key": "bomb-5"
+            },
+            {
                 "url": "assets/images/bullet.png",
                 "type": "image",
                 "key": "bullet"
+            },
+            {
+                "url": "assets/images/game over/game-over-board.png",
+                "type": "image",
+                "key": "game-over-board"
             },
             {
                 "url": "src/scripts/GameManager.js",
@@ -52,6 +82,11 @@
                 "key": "LevelManager"
             },
             {
+                "url": "assets/images/game over/replay-button.png",
+                "type": "image",
+                "key": "replay-button"
+            },
+            {
                 "url": "src/scenes/Result.js",
                 "type": "sceneFile",
                 "key": "Result"
@@ -67,7 +102,7 @@
                 "key": "SoundManager"
             },
             {
-                "url": "assets/images/tank.png",
+                "url": "assets/images/game play/tank.png",
                 "type": "image",
                 "key": "tank"
             },
@@ -75,6 +110,11 @@
                 "url": "src/scripts/TweenManager.js",
                 "type": "script",
                 "key": "TweenManager"
+            },
+            {
+                "url": "assets/images/game play/whole.png",
+                "type": "image",
+                "key": "whole"
             }
         ]
     },

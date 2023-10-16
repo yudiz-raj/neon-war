@@ -11,7 +11,25 @@ class TweenManager {
             duration: 10,
             onComplete: () => {
                 this.oScene.bombGroup.add(bomb);
-                bomb.body.setCircle(20, 12, 12);
+                switch (bomb.texture.key) {
+                    case "bomb-1":
+                        bomb.body.setCircle(60, 50, 30);
+                        break;
+                    case "bomb-2":
+                        bomb.body.setCircle(70, 20, 15);
+                        break;
+                    case "bomb-3":
+                        bomb.body.setCircle(80, 70, 45);
+                        break;
+                    case "bomb-4":
+                        bomb.body.setCircle(85, 45, 25);
+                        break;
+                    case "bomb-5":
+                        bomb.body.setCircle(100, 45, 25);
+                        break;
+                    default:
+                        break;
+                }
                 bomb.body.setCollideWorldBounds();
                 bomb.body.setGravityY(1000);
                 const nRandomVelocity = Math.floor(Math.random() * (300 - (-300))) + (-300);

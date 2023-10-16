@@ -1,6 +1,72 @@
 {
     "section1": {
-        "files": []
+        "files": [
+            {
+                "url": "assets/images/game play/background.png",
+                "type": "image",
+                "key": "background"
+            },
+            {
+                "url": "assets/images/sprite sheet/fire-1.png",
+                "type": "image",
+                "key": "fire-1"
+            },
+            {
+                "url": "assets/images/sprite sheet/fire-2.png",
+                "type": "image",
+                "key": "fire-2"
+            },
+            {
+                "url": "assets/images/sprite sheet/fire-3.png",
+                "type": "image",
+                "key": "fire-3"
+            },
+            {
+                "url": "assets/images/sprite sheet/fire-4.png",
+                "type": "image",
+                "key": "fire-4"
+            },
+            {
+                "url": "assets/images/sprite sheet/fire-5.png",
+                "type": "image",
+                "key": "fire-5"
+            },
+            {
+                "url": "assets/images/sprite sheet/fire-6.png",
+                "type": "image",
+                "key": "fire-6"
+            },
+            {
+                "url": "assets/images/sprite sheet/fire-7.png",
+                "type": "image",
+                "key": "fire-7"
+            },
+            {
+                "url": "assets/animations/fireAnimation.json",
+                "type": "animation",
+                "key": "fireAnimation"
+            },
+            {
+                "url": "assets/images/splash screen/load.png",
+                "type": "image",
+                "key": "load"
+            },
+            {
+                "url": "assets/images/splash screen/load-bomb.png",
+                "type": "image",
+                "key": "load-bomb"
+            },
+            {
+                "url": "assets/images/splash screen/loading-case.png",
+                "type": "image",
+                "key": "loading-case"
+            },
+            {
+                "url": "assets/images/splash screen/logo.png",
+                "type": "image",
+                "key": "logo"
+            }
+        ]
     },
     "meta": {
         "app": "Phaser Editor 2D - Asset Pack Editor",

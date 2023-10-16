@@ -8,8 +8,8 @@
         ],
         "createMethodName": "editorCreate",
         "sceneKey": "Preload",
-        "borderWidth": 1920,
-        "borderHeight": 1080
+        "borderWidth": 1080,
+        "borderHeight": 1920
     },
     "displayList": [
         {
@@ -19,12 +19,65 @@
             "components": [
                 "PreloadText"
             ],
-            "x": 960,
-            "y": 540,
+            "x": 540,
+            "y": 960,
             "originX": 0.5,
             "originY": 0.5,
             "text": "0%",
             "fontSize": "54px"
+        },
+        {
+            "type": "Image",
+            "id": "33e98ebf-24b6-48c0-ac02-e377f2dc7ad3",
+            "label": "background",
+            "texture": {
+                "key": "background"
+            },
+            "x": 540,
+            "y": 960
+        },
+        {
+            "type": "Image",
+            "id": "dc1166ac-381c-411e-bad4-07308047f603",
+            "label": "outerBar",
+            "texture": {
+                "key": "loading-case"
+            },
+            "x": 540,
+            "y": 1498
+        },
+        {
+            "type": "Image",
+            "id": "a3a3a4f8-eb8a-4044-a323-1fae0b27c79c",
+            "label": "innerBar",
+            "scope": "CLASS",
+            "texture": {
+                "key": "load"
+            },
+            "x": 245,
+            "y": 1518,
+            "originX": 0
+        },
+        {
+            "type": "Image",
+            "id": "5d32393b-7ab7-427a-8628-863151955bf2",
+            "label": "load_bomb",
+            "scope": "CLASS",
+            "texture": {
+                "key": "load-bomb"
+            },
+            "x": 270,
+            "y": 1509
+        },
+        {
+            "type": "Image",
+            "id": "5960a3aa-bbe9-4a17-bb2d-53504360eea7",
+            "label": "logo",
+            "texture": {
+                "key": "logo"
+            },
+            "x": 540,
+            "y": 473
         }
     ],
     "plainObjects": [],
@@ -32,6 +85,6 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 3
+        "version": 4
     }
 }

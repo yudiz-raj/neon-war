@@ -8,8 +8,8 @@ const init = () => {
 		}
 	}
 	var game = new Phaser.Game({
-		width: 1920,
-		height: 1080,
+		width: 1080,
+		height: 1920,
 		type: Phaser.AUTO,
 		backgroundColor: "#242424",
 		parent: "game-division",
@@ -31,6 +31,7 @@ const init = () => {
 			},
 		}
 	});
+	localStorage.setItem('bestScore', localStorage.getItem('bestScore') == undefined ? 0 : localStorage.getItem('bestScore'));
 	game.scene.add("Preload", Preload);
 	game.scene.add("Level", Level);
 	game.scene.add("Boot", Boot, true);

@@ -19,33 +19,20 @@ class Level extends Phaser.Scene {
 		const body = this.add.container(0, 0);
 
 		// background
-		const background = this.add.image(960, 540, "background");
-		background.scaleX = 3;
-		background.scaleY = 3;
-		background.alpha = 0.5;
-		background.alphaTopLeft = 0.5;
-		background.alphaTopRight = 0.5;
-		background.alphaBottomLeft = 0.5;
-		background.alphaBottomRight = 0.5;
+		const background = this.add.image(540, 960, "background");
 		body.add(background);
 
-		// dragArea
-		const dragArea = this.add.rectangle(720, 1001, 480, 80);
-		dragArea.setOrigin(0, 0);
-		body.add(dragArea);
+		// whole
+		const whole = this.add.image(260, 1406, "whole");
+		body.add(whole);
 
 		// container_warArea
 		const container_warArea = this.add.container(0, 0);
 		body.add(container_warArea);
 
 		// warArea
-		const warArea = this.add.rectangle(635, 22, 650, 980);
+		const warArea = this.add.rectangle(0, 0, 1080, 1920);
 		warArea.setOrigin(0, 0);
-		warArea.isFilled = true;
-		warArea.fillColor = 0;
-		warArea.fillAlpha = 0.5;
-		warArea.isStroked = true;
-		warArea.strokeColor = 14324483;
 		warArea.lineWidth = 3;
 		container_warArea.add(warArea);
 
@@ -57,33 +44,35 @@ class Level extends Phaser.Scene {
 		const container_Bombs = this.add.container(0, 0);
 		body.add(container_Bombs);
 
+		// container_tank
+		const container_tank = this.add.container(0, 4);
+		body.add(container_tank);
+
 		// score_Txt
-		const score_Txt = this.add.text(664, 75, "", {});
+		const score_Txt = this.add.text(413.5, 75, "", {});
 		score_Txt.setOrigin(0, 0.5);
 		score_Txt.text = "Score:0";
 		score_Txt.setStyle({ "fontSize": "60px" });
 		body.add(score_Txt);
 
 		// start_button
-		const start_button = this.add.text(960, 1038, "", {});
+		const start_button = this.add.text(540, 1810, "", {});
 		start_button.setOrigin(0.5, 0.5);
 		start_button.text = "Tap to play";
 		start_button.setStyle({ "fontSize": "60px" });
 		body.add(start_button);
 
-		this.dragArea = dragArea;
 		this.warArea = warArea;
 		this.container_warArea = container_warArea;
 		this.container_bombGenerator = container_bombGenerator;
 		this.container_Bombs = container_Bombs;
+		this.container_tank = container_tank;
 		this.score_Txt = score_Txt;
 		this.start_button = start_button;
 
 		this.events.emit("scene-awake");
 	}
 
-	/** @type {Phaser.GameObjects.Rectangle} */
-	dragArea;
 	/** @type {Phaser.GameObjects.Rectangle} */
 	warArea;
 	/** @type {Phaser.GameObjects.Container} */
@@ -92,6 +81,8 @@ class Level extends Phaser.Scene {
 	container_bombGenerator;
 	/** @type {Phaser.GameObjects.Container} */
 	container_Bombs;
+	/** @type {Phaser.GameObjects.Container} */
+	container_tank;
 	/** @type {Phaser.GameObjects.Text} */
 	score_Txt;
 	/** @type {Phaser.GameObjects.Text} */
@@ -100,49 +91,48 @@ class Level extends Phaser.Scene {
 	/* START-USER-CODE */
 	// Write more your code here
 	setBullet() {
-		const bullet = this.bulletGroup.create(this.tankGroup.children.entries[0].x, this.tankGroup.children.entries[0].y, "bullet").setScale(0.1).setVelocityY(-1200);
-		bullet.body.setCircle(100, 150, 150);
+		const bullet = this.bulletGroup.create(this.tank.x, this.tank.y - 130, "fire-1").setVelocityY(-1500);
+		bullet.body.setCircle(17, 20, 20);
 		bullet.setCollideWorldBounds();
+		bullet.anims.play('fireAnimation', true);
 	}
 	setTank() {
-		this.tank = this.tankGroup.create(720, 811, "tank").setScale(0.9, 0.9);
-		this.tank.body.setSize(130, 200);
-		this.tank.body.setOffset(190, 255);
+		this.tank = this.tankGroup.create(540, 1770, "tank");
+		this.tank.body.setSize(230, 250);
+		this.tank.body.setOffset(20, 20);
+		this.container_tank.add(this.tank);
 	}
 	scroll() {
-		this.interactiveArea = this.dragArea;
-		this.interactiveArea.on("pointerdown", () => {
-			this.isPointerDown = true;
+		this.tank.setInteractive();
+		this.input.setDraggable(this.tank);
+		this.input.on("dragstart", () => {
 			this.interval = setInterval(() => {
 				this.setBullet();
-			}, 300);
+			}, 250);
 		});
-		this.input.on("pointerup", () => {
-			this.isPointerDown = false;
+		this.input.on('drag', (pointer, gameObject, dragX) => {
+			gameObject.x = dragX;
+			gameObject.x = Math.min(Math.max(172, this.tank.x), 890);
+		});
+		this.input.on("dragend", () => {
 			clearInterval(this.interval);
-		});
-		this.interactiveArea.on("pointermove", (pointer) => {
-			if (this.isPointerDown) {
-				this.tank.x = pointer.x;
-			}
 		});
 	}
 	create() {
 		this.editorCreate();
 		this.nScore = 0;
 		this.nLevelCount = 1;
+		localStorage.setItem('currentScore', 0);
 		this.oLevelManager = new LevelManager(this);
 		this.oTweenManager = new TweenManager(this);
-		this.bulletGroup = this.physics.add.group();
 		this.bombGroup = this.physics.add.group();
 		this.tankGroup = this.physics.add.group();
-		this.physics.world.setBounds(635, 22, 650, 980);
-		this.scroll();
+		this.bulletGroup = this.physics.add.group();
 		this.start_button.setInteractive().on("pointerdown", () => {
 			this.start_button.setVisible(false);
 			this.start_button.disableInteractive();
-			this.interactiveArea.setInteractive();
 			this.setTank();
+			this.scroll();
 			let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
 			let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
 			setTimeout(() => {
@@ -150,34 +140,47 @@ class Level extends Phaser.Scene {
 			}, 1000);
 		})
 		this.physics.add.collider(this.bulletGroup, this.bombGroup, (bullet, bomb) => {
-			this.nScore += 2;
-			this.score_Txt.setText("Score:" + this.nScore);
-			const popUpText = this.add.text(bomb.x, bomb.y + 20, "+2", { "fontSize": 60 }).setOrigin(0.5, 0).setAngle(-10);
-			this.oTweenManager.popUpAnimation(popUpText);
-			bullet.destroy();
+			bullet.anims.play('blastAnimation', true).once('animationcomplete', () => {
+				setTimeout(() => {
+					bullet.destroy();
+				}, 200);
+			});
 			switch (bomb.texture.key) {
-				case "ball_1":
+				case "bomb-1":
+					this.nScore += 2;
 					bomb.destroy();
 					break;
-				case "ball_2":
+				case "bomb-2":
+					this.nScore += 5;
 					this.controlBombVelocity(bomb);
-					bomb.setTexture("ball_1");
+					bomb.setTexture("bomb-1");
+					bomb.body.setCircle(60, 50, 30);
 					break;
-				case "ball_3":
+				case "bomb-3":
+					this.nScore += 5;
 					this.controlBombVelocity(bomb);
-					bomb.setTexture("ball_1");
+					bomb.setTexture("bomb-1");
+					bomb.body.setCircle(60, 50, 30);
 					break;
-				case "ball_4":
+				case "bomb-4":
+					this.nScore += 5;
 					this.controlBombVelocity(bomb);
-					bomb.setTexture("ball_2");
+					bomb.setTexture("bomb-3");
+					bomb.body.setCircle(80, 70, 45);
 					break;
-				case "ball_5":
+				case "bomb-5":
+					this.nScore += 5;
 					this.controlBombVelocity(bomb);
-					bomb.setTexture("ball_3");
+					bomb.setTexture("bomb-4");
+					bomb.body.setCircle(85, 45, 25);
 					break;
 				default:
 					break;
 			}
+			this.score_Txt.setText("Score:" + this.nScore);
+			const popUpText = this.add.text(bomb.x, bomb.y + 20, `${this.nScore - Number(localStorage.getItem('currentScore'))}`, { "fontSize": 60 }).setOrigin(0.5, 0).setAngle(-10);
+			this.oTweenManager.popUpAnimation(popUpText);
+			localStorage.setItem('currentScore', this.nScore);
 			if (this.container_Bombs.list.length == 0) {
 				this.nLevelCount += 1;
 				this.checkForLevel();
@@ -193,16 +196,13 @@ class Level extends Phaser.Scene {
 				generator.destroy();
 			});
 			tank.destroy();
-			this.interactiveArea.disableInteractive();
-			if (this.nScore > nBestScore) {
-				nBestScore = this.nScore;
-			}
-			let nScore = this.nScore;
+			Number(localStorage.getItem("bestScore")) <= Number(this.nScore) ?
+				localStorage.setItem("bestScore", Number(this.nScore)) :
+				localStorage.setItem("bestScore", Number(localStorage.getItem("bestScore")));
 			this.cameras.main.shake(800, 0.006);
-			this.cameras.main.alpha = 0.5;
 			setTimeout(() => {
 				this.scene.stop("Level");
-				this.scene.start("Result", { nScore, nBestScore });
+				this.scene.start("Result");
 			}, 800);
 		});
 	}
@@ -229,7 +229,7 @@ class Level extends Phaser.Scene {
 		}
 	}
 	setBombGenerator(nNumberofBombs, bombsData, i) {
-		const nRandomX = Math.floor(Math.random() * (1215 - 705)) + 705;
+		const nRandomX = Math.floor(Math.random() * (984 - 112)) + 112;
 		const nRandomY = Math.floor(Math.random() * (407 - 115)) + 115;
 		const generator = this.add.image(nRandomX, nRandomY, "bullet").setScale(0.5, 0.5);
 		generator.tintFill = true;

@@ -5,8 +5,8 @@
         "preloadPackFiles": [],
         "createMethodName": "editorCreate",
         "sceneKey": "Level",
-        "borderWidth": 1920,
-        "borderHeight": 1080
+        "borderWidth": 1080,
+        "borderHeight": 1920
     },
     "displayList": [
         {
@@ -21,27 +21,18 @@
                     "texture": {
                         "key": "background"
                     },
-                    "x": 960,
-                    "y": 540,
-                    "scaleX": 3,
-                    "scaleY": 3,
-                    "alpha": 0.5,
-                    "alphaTopLeft": 0.5,
-                    "alphaTopRight": 0.5,
-                    "alphaBottomLeft": 0.5,
-                    "alphaBottomRight": 0.5
+                    "x": 540,
+                    "y": 960
                 },
                 {
-                    "type": "Rectangle",
-                    "id": "f9ad19a0-3b7b-4a78-baaa-c4d7457d75cc",
-                    "label": "dragArea",
-                    "scope": "CLASS",
-                    "x": 720,
-                    "y": 1001,
-                    "originX": 0,
-                    "originY": 0,
-                    "width": 480,
-                    "height": 80
+                    "type": "Image",
+                    "id": "47e0ec49-23c8-4081-b09a-d3fb0f51149a",
+                    "label": "whole",
+                    "texture": {
+                        "key": "whole"
+                    },
+                    "x": 260,
+                    "y": 1406
                 },
                 {
                     "type": "Container",
@@ -54,18 +45,13 @@
                             "id": "c1ea8b6a-c8a9-4c2c-b843-b9a998d39449",
                             "label": "warArea",
                             "scope": "CLASS",
-                            "x": 635,
-                            "y": 22,
                             "originX": 0,
                             "originY": 0,
-                            "isFilled": true,
-                            "fillColor": "#000000",
-                            "fillAlpha": 0.5,
-                            "strokeColor": "#da9303",
+                            "fillColor": "#ffffff",
+                            "strokeColor": "#ffffff",
                             "lineWidth": 3,
-                            "isStroked": true,
-                            "width": 650,
-                            "height": 980
+                            "width": 1080,
+                            "height": 1920
                         }
                     ]
                 },
@@ -82,11 +68,18 @@
                     "scope": "CLASS"
                 },
                 {
+                    "type": "Container",
+                    "id": "c82e95d6-235b-4c43-abdd-85d731901c09",
+                    "label": "container_tank",
+                    "scope": "CLASS",
+                    "y": 4
+                },
+                {
                     "type": "Text",
                     "id": "8adcde82-c901-4c99-b09a-3a975177e934",
                     "label": "score_Txt",
                     "scope": "CLASS",
-                    "x": 664,
+                    "x": 413.5,
                     "y": 75,
                     "originY": 0.5,
                     "text": "Score:0",
@@ -97,8 +90,8 @@
                     "id": "741a0835-6ba5-4d3f-a522-c41bba6e15ae",
                     "label": "start_button",
                     "scope": "CLASS",
-                    "x": 960,
-                    "y": 1038,
+                    "x": 540,
+                    "y": 1810,
                     "originX": 0.5,
                     "originY": 0.5,
                     "text": "Tap to play",

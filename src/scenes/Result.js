@@ -17,54 +17,34 @@ class Result extends Phaser.Scene {
 	editorCreate() {
 
 		// background
-		const background = this.add.image(960, 540, "background");
-		background.scaleX = 3;
-		background.scaleY = 3;
-		background.alpha = 0.5;
-		background.alphaTopLeft = 0.5;
-		background.alphaTopRight = 0.5;
-		background.alphaBottomLeft = 0.5;
-		background.alphaBottomRight = 0.5;
-
-		// warArea
-		const warArea = this.add.rectangle(635, 22, 650, 980);
-		warArea.setOrigin(0, 0);
-		warArea.isFilled = true;
-		warArea.fillColor = 0;
-		warArea.fillAlpha = 0.5;
-		warArea.isStroked = true;
-		warArea.strokeColor = 14324483;
-		warArea.lineWidth = 3;
+		this.add.image(540, 960, "background");
 
 		// tank
-		const tank = this.add.image(960, 810, "tank");
-		tank.scaleX = 0.9;
-		tank.scaleY = 0.9;
+		this.add.image(540, 1770, "tank");
+
+		// black_layer
+		this.add.image(540, 960, "black-layer");
+
+		// game_over_board
+		this.add.image(540, 960, "game-over-board");
 
 		// replay_button
-		const replay_button = this.add.text(960, 1038, "", {});
+		const replay_button = this.add.text(540, 1549, "", {});
 		replay_button.setOrigin(0.5, 0.5);
 		replay_button.text = "Replay";
 		replay_button.setStyle({ "fontSize": "60px" });
 
-		this.warArea = warArea;
 		this.replay_button = replay_button;
 
 		this.events.emit("scene-awake");
 	}
 
-	/** @type {Phaser.GameObjects.Rectangle} */
-	warArea;
 	/** @type {Phaser.GameObjects.Text} */
 	replay_button;
 
 	/* START-USER-CODE */
 
 	// Write your code here
-	init(score) {
-		this.score = score;
-	}
-
 	create() {
 		this.editorCreate();
 		// this.cameras.main.shake(500, 0.01);
@@ -73,8 +53,8 @@ class Result extends Phaser.Scene {
 			this.scene.start("Level");
 		})
 
-		this.add.text(960, 450, `Score: ${this.score.nScore}`, { "fontSize": "60px" }).setOrigin(0.5, 0.5);
-		this.add.text(960, 540, `Best Score: ${this.score.nBestScore}`, { "fontSize": "60px" }).setOrigin(0.5, 0.5);
+		this.add.text(540, 985, localStorage.getItem("currentScore"), { "fontSize": "60px" }).setOrigin(0.5, 0.5);
+		this.add.text(540, 1170, localStorage.getItem("bestScore"), { "fontSize": "60px" }).setOrigin(0.5, 0.5);
 
 	}
 	/* END-USER-CODE */
