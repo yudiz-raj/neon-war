@@ -2,7 +2,7 @@ class TweenManager {
     constructor(oScene) {
         this.oScene = oScene;
     }
-    bombAnimation(bomb, generator, tank) {
+    bombAnimation(bomb) {
         this.oScene.add.tween({
             targets: bomb,
             scaleX: 1,
@@ -31,9 +31,9 @@ class TweenManager {
                         break;
                 }
                 bomb.body.setCollideWorldBounds();
-                bomb.body.setGravityY(1000);
-                const nRandomVelocity = Math.floor(Math.random() * (300 - (-300))) + (-300);
-                bomb.body.setVelocity(nRandomVelocity, -200);
+                bomb.body.setGravityY(2000);
+                const nRandomVelocity = Math.floor(Math.random() * (500 - (-500))) + (-500);
+                bomb.body.setVelocity(nRandomVelocity, -500);
                 bomb.body.setBounce(1);
             }
         });

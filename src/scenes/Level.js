@@ -49,18 +49,16 @@ class Level extends Phaser.Scene {
 		body.add(container_tank);
 
 		// score_Txt
-		const score_Txt = this.add.text(413.5, 75, "", {});
-		score_Txt.setOrigin(0, 0.5);
-		score_Txt.text = "Score:0";
-		score_Txt.setStyle({ "fontSize": "60px" });
+		const score_Txt = this.add.text(540, 184, "", {});
+		score_Txt.setOrigin(0.5, 0.5);
+		score_Txt.alpha = 0.54;
+		score_Txt.alphaTopLeft = 0.54;
+		score_Txt.alphaTopRight = 0.54;
+		score_Txt.alphaBottomLeft = 0.54;
+		score_Txt.alphaBottomRight = 0.54;
+		score_Txt.text = "0";
+		score_Txt.setStyle({ "color": "#422D0E", "fontFamily": "Score", "fontSize": "250px" });
 		body.add(score_Txt);
-
-		// start_button
-		const start_button = this.add.text(540, 1810, "", {});
-		start_button.setOrigin(0.5, 0.5);
-		start_button.text = "Tap to play";
-		start_button.setStyle({ "fontSize": "60px" });
-		body.add(start_button);
 
 		this.warArea = warArea;
 		this.container_warArea = container_warArea;
@@ -68,7 +66,6 @@ class Level extends Phaser.Scene {
 		this.container_Bombs = container_Bombs;
 		this.container_tank = container_tank;
 		this.score_Txt = score_Txt;
-		this.start_button = start_button;
 
 		this.events.emit("scene-awake");
 	}
@@ -85,8 +82,6 @@ class Level extends Phaser.Scene {
 	container_tank;
 	/** @type {Phaser.GameObjects.Text} */
 	score_Txt;
-	/** @type {Phaser.GameObjects.Text} */
-	start_button;
 
 	/* START-USER-CODE */
 	// Write more your code here
@@ -128,17 +123,13 @@ class Level extends Phaser.Scene {
 		this.bombGroup = this.physics.add.group();
 		this.tankGroup = this.physics.add.group();
 		this.bulletGroup = this.physics.add.group();
-		this.start_button.setInteractive().on("pointerdown", () => {
-			this.start_button.setVisible(false);
-			this.start_button.disableInteractive();
-			this.setTank();
-			this.scroll();
-			let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
-			let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
-			setTimeout(() => {
-				this.setBombGenerator(nNumberofBombs, bombsData, 1);
-			}, 1000);
-		})
+		this.setTank();
+		this.scroll();
+		let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
+		let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
+		setTimeout(() => {
+			this.setBombs(nNumberofBombs, bombsData, 1);
+		}, 1000);
 		this.physics.add.collider(this.bulletGroup, this.bombGroup, (bullet, bomb) => {
 			bullet.anims.play('blastAnimation', true).once('animationcomplete', () => {
 				setTimeout(() => {
@@ -147,17 +138,17 @@ class Level extends Phaser.Scene {
 			});
 			switch (bomb.texture.key) {
 				case "bomb-1":
-					this.nScore += 2;
+					this.nScore += 1;
 					bomb.destroy();
 					break;
 				case "bomb-2":
-					this.nScore += 5;
+					this.nScore += 1;
 					this.controlBombVelocity(bomb);
 					bomb.setTexture("bomb-1");
 					bomb.body.setCircle(60, 50, 30);
 					break;
 				case "bomb-3":
-					this.nScore += 5;
+					this.nScore += 4;
 					this.controlBombVelocity(bomb);
 					bomb.setTexture("bomb-1");
 					bomb.body.setCircle(60, 50, 30);
@@ -177,7 +168,7 @@ class Level extends Phaser.Scene {
 				default:
 					break;
 			}
-			this.score_Txt.setText("Score:" + this.nScore);
+			this.score_Txt.setText(this.nScore);
 			const popUpText = this.add.text(bomb.x, bomb.y + 20, `${this.nScore - Number(localStorage.getItem('currentScore'))}`, { "fontSize": 60 }).setOrigin(0.5, 0).setAngle(-10);
 			this.oTweenManager.popUpAnimation(popUpText);
 			localStorage.setItem('currentScore', this.nScore);
@@ -195,7 +186,11 @@ class Level extends Phaser.Scene {
 			this.container_bombGenerator.list.forEach((generator) => {
 				generator.destroy();
 			});
-			tank.destroy();
+			tank.anims.play('blastAnimation', true).once('animationcomplete', () => {
+				setTimeout(() => {
+					tank.destroy();
+				}, 200);
+			});
 			Number(localStorage.getItem("bestScore")) <= Number(this.nScore) ?
 				localStorage.setItem("bestScore", Number(this.nScore)) :
 				localStorage.setItem("bestScore", Number(localStorage.getItem("bestScore")));
@@ -207,58 +202,52 @@ class Level extends Phaser.Scene {
 		});
 	}
 	checkForLevel() {
-		if (this.nLevelCount <= 4) {
-			let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
-			let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
-			this.setBombGenerator(nNumberofBombs, bombsData, 1);
-		} else {
-			clearInterval(this.interval);
-			this.container_Bombs.list.forEach((otherBombs) => {
-				otherBombs.destroy();
-
-			});
-			this.container_bombGenerator.list.forEach((generator) => {
-				generator.destroy();
-			});
-			if (this.nScore > nBestScore) {
-				nBestScore = this.nScore;
-			}
-			let nScore = this.nScore;
-			this.scene.stop("Level");
-			this.scene.start("Result", { nScore, nBestScore });
+		if (this.nLevelCount > 7) {
+			this.nLevelCount = 3;
 		}
+		let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
+		let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
+		this.setBombs(nNumberofBombs, bombsData, 1);
+		// clearInterval(this.interval);
+		// this.container_Bombs.list.forEach((otherBombs) => {
+		// 	otherBombs.destroy();
+		// });
+		// this.container_bombGenerator.list.forEach((generator) => {
+		// 	generator.destroy();
+		// });
+		// Number(localStorage.getItem("bestScore")) <= Number(this.nScore) ?
+		// 	localStorage.setItem("bestScore", Number(this.nScore)) :
+		// 	localStorage.setItem("bestScore", Number(localStorage.getItem("bestScore")));
+		// this.scene.stop("Level");
+		// this.scene.start("Result");
+
 	}
-	setBombGenerator(nNumberofBombs, bombsData, i) {
+	setBombs(nNumberofBombs, bombsData, i) {
 		const nRandomX = Math.floor(Math.random() * (984 - 112)) + 112;
 		const nRandomY = Math.floor(Math.random() * (407 - 115)) + 115;
-		const generator = this.add.image(nRandomX, nRandomY, "bullet").setScale(0.5, 0.5);
-		generator.tintFill = true;
-		generator.setTintFill(2894892);
-		this.container_bombGenerator.add(generator);
-		this.setBombs(nNumberofBombs, bombsData, generator, i);
-	}
-	setBombs(nNumberofBombs, bombsData, generator, i) {
-
-		let bomb = this.add.image(generator.x, generator.y, bombsData[`bomb_${i - 1}`].texture).setScale(2, 2);
-		this.container_Bombs.add(bomb);
-		this.oTweenManager.bombAnimation(bomb, generator, this.tank);
-		i++;
-		i <= nNumberofBombs ?
-			this.setBombs(nNumberofBombs, bombsData, generator, i) :
-			setTimeout(() => { generator.destroy(); }, 500);
+		let generateBombs = () => {
+			let bomb = this.add.image(nRandomX, nRandomY, bombsData[`bomb_${i - 1}`].texture).setScale(2, 2);
+			this.container_Bombs.add(bomb);
+			this.oTweenManager.bombAnimation(bomb);
+			i++;
+			if (i <= nNumberofBombs) {
+				generateBombs();
+			}
+		}
+		generateBombs();
 	}
 	controlBombVelocity(bomb) {
 		if (bomb.body.velocity.x < 0) {
-			bomb.body.velocity.x = -150;
+			bomb.body.velocity.x = -10;
 		}
 		if (bomb.body.velocity.x > 0) {
-			bomb.body.velocity.x = 150;
+			bomb.body.velocity.x = 10;
 		}
 		if (bomb.body.velocity.y < 0) {
-			bomb.body.velocity.y += 300;
+			bomb.body.velocity.y += 50;
 		}
 		if (bomb.body.velocity.x > 0) {
-			bomb.body.velocity.y -= 300;
+			bomb.body.velocity.y -= 50;
 		}
 	}
 	update() {

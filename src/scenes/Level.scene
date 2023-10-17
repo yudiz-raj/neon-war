@@ -79,23 +79,19 @@
                     "id": "8adcde82-c901-4c99-b09a-3a975177e934",
                     "label": "score_Txt",
                     "scope": "CLASS",
-                    "x": 413.5,
-                    "y": 75,
-                    "originY": 0.5,
-                    "text": "Score:0",
-                    "fontSize": "60px"
-                },
-                {
-                    "type": "Text",
-                    "id": "741a0835-6ba5-4d3f-a522-c41bba6e15ae",
-                    "label": "start_button",
-                    "scope": "CLASS",
                     "x": 540,
-                    "y": 1810,
+                    "y": 184,
                     "originX": 0.5,
                     "originY": 0.5,
-                    "text": "Tap to play",
-                    "fontSize": "60px"
+                    "alpha": 0.54,
+                    "alphaTopLeft": 0.54,
+                    "alphaTopRight": 0.54,
+                    "alphaBottomLeft": 0.54,
+                    "alphaBottomRight": 0.54,
+                    "text": "0",
+                    "fontFamily": "Score",
+                    "fontSize": "250px",
+                    "color": "#422D0E"
                 }
             ]
         }

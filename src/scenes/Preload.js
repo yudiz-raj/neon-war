@@ -104,7 +104,6 @@ class Preload extends Phaser.Scene {
 				this.innerBarWidth * currentProgress,
 				this.innerBar.displayHeight
 			);
-			// this.txt_progress.setText((currentProgress * 100).toFixed(0) + '%');
 			this.load_bomb.x = this.innerBar.x + (this.innerBarWidth * currentProgress) - (this.load_bomb.displayWidth / 5);
 			currentInterval++;
 			if (currentProgress >= 1.07) {
@@ -112,7 +111,6 @@ class Preload extends Phaser.Scene {
 				this.isGameLoaded2 = true;
 			}
 		};
-
 		const progressInterval = setInterval(updateProgressBar, intervalDuration);
 	}
 
