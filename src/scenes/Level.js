@@ -169,7 +169,7 @@ class Level extends Phaser.Scene {
 					break;
 			}
 			this.score_Txt.setText(this.nScore);
-			const popUpText = this.add.text(bomb.x, bomb.y + 20, `${this.nScore - Number(localStorage.getItem('currentScore'))}`, { "fontSize": 60 }).setOrigin(0.5, 0).setAngle(-10);
+			const popUpText = this.add.text(bomb.x, bomb.y + 20, `${this.nScore - Number(localStorage.getItem('currentScore'))}`, {"color":"#4F5B56", "fontSize": 60, "fontFamily": "Score" }).setOrigin(0.5, 0).setAngle(-10);
 			this.oTweenManager.popUpAnimation(popUpText);
 			localStorage.setItem('currentScore', this.nScore);
 			if (this.container_Bombs.list.length == 0) {
@@ -191,9 +191,9 @@ class Level extends Phaser.Scene {
 					tank.destroy();
 				}, 200);
 			});
-			Number(localStorage.getItem("bestScore")) <= Number(this.nScore) ?
-				localStorage.setItem("bestScore", Number(this.nScore)) :
-				localStorage.setItem("bestScore", Number(localStorage.getItem("bestScore")));
+			Number(localStorage.getItem('steelClashBestScore')) <= Number(this.nScore) ?
+				localStorage.setItem('steelClashBestScore', Number(this.nScore)) :
+				localStorage.setItem('steelClashBestScore', Number(localStorage.getItem('steelClashBestScore')));
 			this.cameras.main.shake(800, 0.006);
 			setTimeout(() => {
 				this.scene.stop("Level");
@@ -215,9 +215,9 @@ class Level extends Phaser.Scene {
 		// this.container_bombGenerator.list.forEach((generator) => {
 		// 	generator.destroy();
 		// });
-		// Number(localStorage.getItem("bestScore")) <= Number(this.nScore) ?
-		// 	localStorage.setItem("bestScore", Number(this.nScore)) :
-		// 	localStorage.setItem("bestScore", Number(localStorage.getItem("bestScore")));
+		// Number(localStorage.getItem('steelClashBestScore')) <= Number(this.nScore) ?
+		// 	localStorage.setItem('steelClashBestScore', Number(this.nScore)) :
+		// 	localStorage.setItem('steelClashBestScore', Number(localStorage.getItem('steelClashBestScore')));
 		// this.scene.stop("Level");
 		// this.scene.start("Result");
 

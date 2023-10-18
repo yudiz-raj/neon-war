@@ -114,7 +114,7 @@ class Result extends Phaser.Scene {
 
 		this.score_Txt.setText(Number(localStorage.getItem("currentScore")));
 		this.currentScore.setText(Number(localStorage.getItem("currentScore")));
-		this.bestScore.setText(Number(localStorage.getItem("bestScore")));
+		this.bestScore.setText(Number(localStorage.getItem('steelClashBestScore')));
 		this.replay_button.on("pointerover", () => {
 			this.input.setDefaultCursor("pointer");
 			this.replay_button.setScale(1.05, 1.05);
