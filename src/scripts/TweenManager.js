@@ -3,7 +3,7 @@ class TweenManager {
         this.oScene = oScene;
     }
     bombAnimation(bomb) {
-        this.oScene.add.tween({
+        this.oScene.tweens.add({
             targets: bomb,
             scaleX: 1,
             scaleY: 1,
@@ -39,7 +39,7 @@ class TweenManager {
         });
     }
     popUpAnimation(target) {
-        this.oScene.add.tween({
+        this.oScene.tweens.add({
             targets: target,
             angle: +10,
             y: +50,
@@ -49,5 +49,12 @@ class TweenManager {
                 target.destroy();
             }
         });
+    }
+    opacityAnimation() {
+        this.oScene.tweens.add({
+            targets: this.oScene.container_Bombs.list,
+            alpha: 0,
+            duration: 2000,
+        })
     }
 }

@@ -92,6 +92,78 @@
                     "fontFamily": "Score",
                     "fontSize": "250px",
                     "color": "#422D0E"
+                },
+                {
+                    "type": "Container",
+                    "id": "bf38cd89-de55-4ddc-9eea-10244ce6ec4d",
+                    "label": "container_result",
+                    "scope": "CLASS",
+                    "visible": false,
+                    "list": [
+                        {
+                            "type": "Image",
+                            "id": "eb3f4c9b-6c1e-4981-9a71-a1bde5ff84f0",
+                            "label": "black_layer",
+                            "texture": {
+                                "key": "black-layer"
+                            },
+                            "x": 540,
+                            "y": 960
+                        },
+                        {
+                            "type": "Image",
+                            "id": "2a2d22bc-feb5-447b-bdbd-9321767957cb",
+                            "label": "game_over_board",
+                            "texture": {
+                                "key": "game-over-board"
+                            },
+                            "x": 540,
+                            "y": 960
+                        },
+                        {
+                            "type": "Image",
+                            "id": "fba03fa1-ef5d-44a7-a711-8be11fd7a74c",
+                            "label": "replay_button",
+                            "scope": "CLASS",
+                            "texture": {
+                                "key": "replay-button"
+                            },
+                            "x": 540,
+                            "y": 1419
+                        },
+                        {
+                            "type": "Text",
+                            "id": "508f2f4f-ba09-4f4a-ac9b-1df32ae85633",
+                            "label": "currentScore",
+                            "scope": "CLASS",
+                            "x": 540,
+                            "y": 986,
+                            "originX": 0.5,
+                            "originY": 0.5,
+                            "text": "0",
+                            "fontFamily": "Score",
+                            "fontSize": "80px",
+                            "color": "#FFE633",
+                            "stroke": "#662205 ",
+                            "strokeThickness": 2
+                        },
+                        {
+                            "type": "Text",
+                            "id": "286f9da8-1424-40b7-afa7-27bde613836b",
+                            "label": "bestScore",
+                            "scope": "CLASS",
+                            "x": 540,
+                            "y": 1168,
+                            "originX": 0.5,
+                            "originY": 0.5,
+                            "text": "0",
+                            "fontFamily": "Score",
+                            "fontSize": "80px",
+                            "color": "#FFE633",
+                            "stroke": "#662205 ",
+                            "strokeThickness": 2
+                        }
+                    ]
                 }
             ]
         }

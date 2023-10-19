@@ -70,14 +70,30 @@
             "y": 1509
         },
         {
-            "type": "Image",
-            "id": "5960a3aa-bbe9-4a17-bb2d-53504360eea7",
-            "label": "logo",
+            "type": "Sprite",
+            "id": "59ddca68-17e3-42f9-9c18-a151c78e1e24",
+            "label": "bomb",
+            "scope": "CLASS",
             "texture": {
-                "key": "logo"
+                "key": "fire-1"
             },
+            "x": 1137,
+            "y": -45,
+            "angle": -135
+        },
+        {
+            "prefabId": "b793ca9e-df97-4de2-9169-fa8099ad7692",
+            "id": "06ea2e69-91df-4020-a66e-4c4c38dd4547",
+            "unlock": [
+                "x",
+                "y",
+                "alpha"
+            ],
+            "label": "logo",
+            "scope": "CLASS",
             "x": 540,
-            "y": 473
+            "y": 473,
+            "alpha": 1
         }
     ],
     "plainObjects": [],

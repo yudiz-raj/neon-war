@@ -7,6 +7,11 @@
                 "key": "background"
             },
             {
+                "url": "assets/images/splash screen/blast.png",
+                "type": "image",
+                "key": "blast"
+            },
+            {
                 "url": "assets/images/sprite sheet/fire-1.png",
                 "type": "image",
                 "key": "fire-1"
@@ -47,6 +52,11 @@
                 "key": "fireAnimation"
             },
             {
+                "url": "assets/images/splash screen/game-title.png",
+                "type": "image",
+                "key": "game-title"
+            },
+            {
                 "url": "assets/images/splash screen/load.png",
                 "type": "image",
                 "key": "load"
@@ -65,6 +75,21 @@
                 "url": "assets/images/splash screen/logo.png",
                 "type": "image",
                 "key": "logo"
+            },
+            {
+                "url": "assets/images/splash screen/logo-tank.png",
+                "type": "image",
+                "key": "logo-tank"
+            },
+            {
+                "url": "src/prefabs/LogoPrefab.js",
+                "type": "script",
+                "key": "LogoPrefab"
+            },
+            {
+                "url": "assets/images/splash screen/smoke.png",
+                "type": "image",
+                "key": "smoke"
             }
         ]
     },

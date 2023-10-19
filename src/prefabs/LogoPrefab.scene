@@ -1,0 +1,69 @@
+{
+    "id": "b793ca9e-df97-4de2-9169-fa8099ad7692",
+    "sceneType": "PREFAB",
+    "settings": {
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 1080,
+        "borderHeight": 1920
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "64d2b582-441c-4bc6-a9f2-af41b6badc40",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "29612ac4-91a0-411c-ba51-29953c623d1f",
+                    "label": "blast",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "blast"
+                    },
+                    "x": 11,
+                    "y": -9,
+                    "visible": false
+                },
+                {
+                    "type": "Image",
+                    "id": "d4bfd337-bd80-421e-a7dc-63d7b03cd3ea",
+                    "label": "logo_tank",
+                    "texture": {
+                        "key": "logo-tank"
+                    },
+                    "x": -32,
+                    "y": 132
+                },
+                {
+                    "type": "Image",
+                    "id": "ad263715-f8f1-4eb4-aafd-86b8389209c9",
+                    "label": "game_title",
+                    "texture": {
+                        "key": "game-title"
+                    },
+                    "x": -1,
+                    "y": 172
+                },
+                {
+                    "type": "Image",
+                    "id": "bf630db4-afbb-49c2-b881-511f60d6c2bc",
+                    "label": "smoke",
+                    "texture": {
+                        "key": "smoke"
+                    },
+                    "x": -54,
+                    "y": 292
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 4
+    }
+}

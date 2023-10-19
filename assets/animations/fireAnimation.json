@@ -20,8 +20,10 @@
                     "keyframe": false
                 }
             ],
-            "frameRate": 2,
+            "frameRate": 4,
             "skipMissedFrames": true,
+            "repeat": -1,
+            "yoyo": true,
             "showBeforeDelay": false
         },
         {

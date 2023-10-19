@@ -41,14 +41,22 @@ class Preload extends Phaser.Scene {
 		// load_bomb
 		const load_bomb = this.add.image(270, 1509, "load-bomb");
 
+		// bomb
+		const bomb = this.add.sprite(1137, -45, "fire-1");
+		bomb.angle = -135;
+
 		// logo
-		this.add.image(540, 473, "logo");
+		const logo = new LogoPrefab(this, 540, 473);
+		this.add.existing(logo);
+		logo.alpha = 1;
 
 		// progress (components)
 		new PreloadText(progress);
 
 		this.innerBar = innerBar;
 		this.load_bomb = load_bomb;
+		this.bomb = bomb;
+		this.logo = logo;
 
 		this.events.emit("scene-awake");
 	}
@@ -57,6 +65,10 @@ class Preload extends Phaser.Scene {
 	innerBar;
 	/** @type {Phaser.GameObjects.Image} */
 	load_bomb;
+	/** @type {Phaser.GameObjects.Sprite} */
+	bomb;
+	/** @type {LogoPrefab} */
+	logo;
 
 	/* START-USER-CODE */
 
@@ -67,7 +79,19 @@ class Preload extends Phaser.Scene {
 		this.editorCreate();
 
 		this.editorPreload();
-
+		this.bomb.anims.play("fireAnimation", true);
+		this.tweens.add({
+			targets: this.bomb,
+			x: 551,
+			y: 471,
+			duration: 1000,
+			delay: 1000,
+			onComplete: () => {
+				this.bomb.setScale(1.5);
+				this.bomb.anims.play("blastAnimation", true);
+				this.cameras.main.shake(200, 0.006);
+			}
+		});
 		this.isGameLoaded1 = false;
 		this.isGameLoaded2 = false;
 		this.load.on(Phaser.Loader.Events.COMPLETE, (p) => {

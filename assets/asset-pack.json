@@ -57,11 +57,6 @@
                 "key": "replay-button"
             },
             {
-                "url": "src/scenes/Result.js",
-                "type": "sceneFile",
-                "key": "Result"
-            },
-            {
                 "url": "src/scripts/SocketManager.js",
                 "type": "script",
                 "key": "SocketManager"
