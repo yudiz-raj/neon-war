@@ -38,6 +38,16 @@ class TweenManager {
             }
         });
     }
+    instructionAnimation() {
+        this.instructionTween = this.oScene.tweens.add({
+            targets: this.oScene.instruction_text,
+            scale: 1.05,
+            ease: "power2",
+            duration: 1000,
+            yoyo: true,
+            repeat: -1
+        });
+    }
     popUpAnimation(target) {
         this.oScene.tweens.add({
             targets: target,

@@ -21,10 +21,6 @@ class Level extends Phaser.Scene {
 		const background = this.add.image(540, 960, "background");
 		body.add(background);
 
-		// whole
-		const whole = this.add.image(260, 1406, "whole");
-		body.add(whole);
-
 		// container_warArea
 		const container_warArea = this.add.container(0, 0);
 		body.add(container_warArea);
@@ -73,8 +69,14 @@ class Level extends Phaser.Scene {
 		container_result.add(game_over_board);
 
 		// replay_button
-		const replay_button = this.add.image(540, 1419, "replay-button");
+		const replay_button = this.add.image(674, 1419, "replay-button");
 		container_result.add(replay_button);
+
+		// home_button
+		const home_button = this.add.image(328, 1422, "home-button");
+		home_button.scaleX = 1.5;
+		home_button.scaleY = 1.5;
+		container_result.add(home_button);
 
 		// currentScore
 		const currentScore = this.add.text(540, 986, "", {});
@@ -90,6 +92,12 @@ class Level extends Phaser.Scene {
 		bestScore.setStyle({ "color": "#FFE633", "fontFamily": "Score", "fontSize": "80px", "stroke": "#662205 ", "strokeThickness": 2 });
 		container_result.add(bestScore);
 
+		// instruction_text
+		const instruction_text = this.add.text(540, 1792, "", {});
+		instruction_text.setOrigin(0.5, 0.5);
+		instruction_text.text = "TOUCH AND DRAG THE TANK TO MOVE";
+		instruction_text.setStyle({ "color": "#FFE633", "fontFamily": "Score", "fontSize": "46px" });
+
 		this.warArea = warArea;
 		this.container_warArea = container_warArea;
 		this.container_bombGenerator = container_bombGenerator;
@@ -97,9 +105,11 @@ class Level extends Phaser.Scene {
 		this.container_tank = container_tank;
 		this.score_Txt = score_Txt;
 		this.replay_button = replay_button;
+		this.home_button = home_button;
 		this.currentScore = currentScore;
 		this.bestScore = bestScore;
 		this.container_result = container_result;
+		this.instruction_text = instruction_text;
 
 		this.events.emit("scene-awake");
 	}
@@ -118,12 +128,16 @@ class Level extends Phaser.Scene {
 	score_Txt;
 	/** @type {Phaser.GameObjects.Image} */
 	replay_button;
+	/** @type {Phaser.GameObjects.Image} */
+	home_button;
 	/** @type {Phaser.GameObjects.Text} */
 	currentScore;
 	/** @type {Phaser.GameObjects.Text} */
 	bestScore;
 	/** @type {Phaser.GameObjects.Container} */
 	container_result;
+	/** @type {Phaser.GameObjects.Text} */
+	instruction_text;
 
 	/* START-USER-CODE */
 	// Write more your code here
@@ -169,9 +183,14 @@ class Level extends Phaser.Scene {
 		this.scroll();
 		let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
 		let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
-		setTimeout(() => {
-			this.setBombs(nNumberofBombs, bombsData, 1);
-		}, 1000);
+		this.oTweenManager.instructionAnimation();
+		this.input.once("pointerdown", () => {
+			setTimeout(() => {
+				this.oTweenManager.instructionTween.stop();
+				this.instruction_text.destroy();
+				this.setBombGenerator(nNumberofBombs, bombsData, 1);
+			}, 700);
+		});
 		this.physics.add.collider(this.bulletGroup, this.bombGroup, (bullet, bomb) => {
 			bullet.anims.play('blastAnimation', true).once('animationcomplete', () => {
 				setTimeout(() => {
@@ -190,9 +209,9 @@ class Level extends Phaser.Scene {
 					bomb.body.setCircle(60, 50, 30);
 					break;
 				case "bomb-3":
-					this.nScore += 4;
+					this.nScore += 3;
 					this.controlBombVelocity(bomb);
-					bomb.setTexture("bomb-1");
+					bomb.setTexture("bomb-2");
 					bomb.body.setCircle(60, 50, 30);
 					break;
 				case "bomb-4":
@@ -246,6 +265,20 @@ class Level extends Phaser.Scene {
 				this.replay_button.setScale(0.7, 0.7);
 				this.scene.restart("Level");
 			});
+			this.home_button.on("pointerover", () => {
+				this.input.setDefaultCursor("pointer");
+				this.home_button.setScale(1.55, 1.55);
+			});
+			this.home_button.on("pointerout", () => {
+				this.input.setDefaultCursor("default");
+				this.home_button.setScale(1.5, 1.5);
+			});
+			this.home_button.setInteractive().on("pointerdown", () => {
+				this.input.setDefaultCursor("default");
+				this.home_button.setScale(1.2, 1.2);
+				this.scene.stop("Level");
+				this.scene.start("Preload");
+			});
 		});
 	}
 	checkForLevel() {
@@ -254,34 +287,44 @@ class Level extends Phaser.Scene {
 		}
 		let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
 		let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
-		this.setBombs(nNumberofBombs, bombsData, 1);
+		this.setBombGenerator(nNumberofBombs, bombsData, 1);
 	}
-	setBombs(nNumberofBombs, bombsData, i) {
-		const nRandomX = Math.floor(Math.random() * (984 - 112)) + 112;
-		const nRandomY = Math.floor(Math.random() * (407 - 115)) + 115;
+	setBombGenerator(nNumberofBombs, bombsData, i) {
+		const nRandomX = Math.floor(Math.random() * (886 - 197)) + 197;
+		const nRandomY = Math.floor(Math.random() * (481 - 167)) + 167;
+		const generator = this.add.image(nRandomX, nRandomY, "whole").setScale(1.2);
+		this.container_bombGenerator.add(generator);
+		setTimeout(() => {
+			this.setBombs(nNumberofBombs, bombsData, generator, i);
+		}, 500);
+	}
+	setBombs(nNumberofBombs, bombsData, generator, i) {
+
 		let generateBombs = () => {
-			let bomb = this.add.image(nRandomX, nRandomY, bombsData[`bomb_${i - 1}`].texture).setScale(2, 2);
+			let bomb = this.add.sprite(generator.x, generator.y, bombsData[`bomb_${i - 1}`].texture).setScale(2, 2);
 			this.container_Bombs.add(bomb);
 			this.oTweenManager.bombAnimation(bomb);
 			i++;
-			if (i <= nNumberofBombs) {
-				generateBombs();
-			}
+			i <= nNumberofBombs ?
+				generateBombs() :
+				setTimeout(() => {
+					generator.destroy();
+				}, 500);
 		}
 		generateBombs();
 	}
 	controlBombVelocity(bomb) {
 		if (bomb.body.velocity.x < 0) {
-			bomb.body.velocity.x = -10;
+			bomb.body.velocity.x += 100;
 		}
 		if (bomb.body.velocity.x > 0) {
-			bomb.body.velocity.x = 10;
+			bomb.body.velocity.x -= 100;
 		}
 		if (bomb.body.velocity.y < 0) {
-			bomb.body.velocity.y += 50;
+			bomb.body.velocity.y += 150;
 		}
 		if (bomb.body.velocity.x > 0) {
-			bomb.body.velocity.y -= 50;
+			bomb.body.velocity.y -= 150;
 		}
 	}
 	update() {

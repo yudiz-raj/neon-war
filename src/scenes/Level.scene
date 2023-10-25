@@ -25,16 +25,6 @@
                     "y": 960
                 },
                 {
-                    "type": "Image",
-                    "id": "47e0ec49-23c8-4081-b09a-d3fb0f51149a",
-                    "label": "whole",
-                    "texture": {
-                        "key": "whole"
-                    },
-                    "x": 260,
-                    "y": 1406
-                },
-                {
                     "type": "Container",
                     "id": "2c41fb03-1e26-4644-afae-7a6aaa275442",
                     "label": "container_warArea",
@@ -128,8 +118,21 @@
                             "texture": {
                                 "key": "replay-button"
                             },
-                            "x": 540,
+                            "x": 674,
                             "y": 1419
+                        },
+                        {
+                            "type": "Image",
+                            "id": "e34da4ea-250d-4bdd-a8c9-a6749951f767",
+                            "label": "home_button",
+                            "scope": "CLASS",
+                            "texture": {
+                                "key": "home-button"
+                            },
+                            "x": 328,
+                            "y": 1422,
+                            "scaleX": 1.5,
+                            "scaleY": 1.5
                         },
                         {
                             "type": "Text",
@@ -166,6 +169,20 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "Text",
+            "id": "9d9f0933-8376-413b-9ae9-fa2cb2727dc5",
+            "label": "instruction_text",
+            "scope": "CLASS",
+            "x": 540,
+            "y": 1792,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "TOUCH AND DRAG THE TANK TO MOVE",
+            "fontFamily": "Score",
+            "fontSize": "46px",
+            "color": "#FFE633"
         }
     ],
     "plainObjects": [],

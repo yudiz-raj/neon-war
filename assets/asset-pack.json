@@ -42,6 +42,11 @@
                 "key": "GameManager"
             },
             {
+                "url": "assets/images/game over/home-button.png",
+                "type": "image",
+                "key": "home-button"
+            },
+            {
                 "url": "src/scripts/InputManager.js",
                 "type": "script",
                 "key": "InputManager"
