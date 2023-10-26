@@ -32,7 +32,7 @@ class TweenManager {
                 }
                 bomb.body.setCollideWorldBounds();
                 bomb.body.setGravityY(2000);
-                const nRandomVelocity = Math.floor(Math.random() * (500 - (-500))) + (-500);
+                const nRandomVelocity = Math.floor(Math.random() * (500 - (-500) + 10)) + (-500);
                 bomb.body.setVelocity(nRandomVelocity, -500);
                 bomb.body.setBounce(1);
             }
@@ -41,11 +41,48 @@ class TweenManager {
     instructionAnimation() {
         this.instructionTween = this.oScene.tweens.add({
             targets: this.oScene.instruction_text,
-            scale: 1.05,
+            scale: 1.08,
             ease: "power2",
             duration: 1000,
             yoyo: true,
             repeat: -1
+        });
+        this.instructionDestroyTween = this.oScene.tweens.add({
+            targets: this.oScene.instruction_text,
+            alpha: { from: 1, to: 0 },
+            ease: "power2",
+            duration: 2000,
+            onComplete: () => {
+                this.instructionTween.stop();
+                this.oScene.instruction_text.destroy();
+            }
+        });
+        this.instructionDestroyTween.stop();
+    }
+    buttonAnimation(target) {
+        this.oScene.tweens.add({
+            targets: target,
+            scale: "-=0.08",
+            ease: "power2",
+            duration: 200,
+            yoyo: true,
+            onComplete: () => {
+                switch (target.name) {
+                    case "home_button":
+                        this.oScene.scene.stop("Level");
+                        this.oScene.scene.start("Home");
+                        break;
+                    case "replay_button":
+                        this.oScene.scene.restart("Level");
+                        break;
+                    case "play_button":
+                        this.oScene.scene.stop("Home");
+                        this.oScene.scene.start("Level");
+                        break;
+                    default:
+                        break;
+                }
+            }
         });
     }
     popUpAnimation(target) {

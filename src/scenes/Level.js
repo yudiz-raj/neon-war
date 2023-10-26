@@ -70,10 +70,14 @@ class Level extends Phaser.Scene {
 
 		// replay_button
 		const replay_button = this.add.image(674, 1419, "replay-button");
+		replay_button.name = "replay_button";
+		replay_button.setInteractive(new Phaser.Geom.Rectangle(5, -5, 305, 145), Phaser.Geom.Rectangle.Contains);
 		container_result.add(replay_button);
 
 		// home_button
 		const home_button = this.add.image(328, 1422, "home-button");
+		home_button.name = "home_button";
+		home_button.setInteractive(new Phaser.Geom.Rectangle(5, -5, 100, 100), Phaser.Geom.Rectangle.Contains);
 		home_button.scaleX = 1.5;
 		home_button.scaleY = 1.5;
 		container_result.add(home_button);
@@ -174,8 +178,11 @@ class Level extends Phaser.Scene {
 		this.nScore = 0;
 		this.nLevelCount = 1;
 		localStorage.setItem('currentScore', 0);
+
 		this.oLevelManager = new LevelManager(this);
 		this.oTweenManager = new TweenManager(this);
+		this.oInputManager = new InputManager(this);
+
 		this.bombGroup = this.physics.add.group();
 		this.tankGroup = this.physics.add.group();
 		this.bulletGroup = this.physics.add.group();
@@ -186,8 +193,7 @@ class Level extends Phaser.Scene {
 		this.oTweenManager.instructionAnimation();
 		this.input.once("pointerdown", () => {
 			setTimeout(() => {
-				this.oTweenManager.instructionTween.stop();
-				this.instruction_text.destroy();
+				this.oTweenManager.instructionDestroyTween.play();
 				this.setBombGenerator(nNumberofBombs, bombsData, 1);
 			}, 700);
 		});
@@ -252,33 +258,8 @@ class Level extends Phaser.Scene {
 			this.oTweenManager.opacityAnimation();
 			this.currentScore.setText(Number(localStorage.getItem("currentScore")));
 			this.bestScore.setText(Number(localStorage.getItem('steelClashBestScore')));
-			this.replay_button.on("pointerover", () => {
-				this.input.setDefaultCursor("pointer");
-				this.replay_button.setScale(1.05, 1.05);
-			});
-			this.replay_button.on("pointerout", () => {
-				this.input.setDefaultCursor("default");
-				this.replay_button.setScale(1, 1);
-			});
-			this.replay_button.setInteractive().on("pointerdown", () => {
-				this.input.setDefaultCursor("default");
-				this.replay_button.setScale(0.7, 0.7);
-				this.scene.restart("Level");
-			});
-			this.home_button.on("pointerover", () => {
-				this.input.setDefaultCursor("pointer");
-				this.home_button.setScale(1.55, 1.55);
-			});
-			this.home_button.on("pointerout", () => {
-				this.input.setDefaultCursor("default");
-				this.home_button.setScale(1.5, 1.5);
-			});
-			this.home_button.setInteractive().on("pointerdown", () => {
-				this.input.setDefaultCursor("default");
-				this.home_button.setScale(1.2, 1.2);
-				this.scene.stop("Level");
-				this.scene.start("Preload");
-			});
+			this.oInputManager.buttonClick(this.home_button);
+			this.oInputManager.buttonClick(this.replay_button);
 		});
 	}
 	checkForLevel() {
@@ -287,7 +268,9 @@ class Level extends Phaser.Scene {
 		}
 		let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
 		let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
-		this.setBombGenerator(nNumberofBombs, bombsData, 1);
+		if (!this.container_result.visible) {
+			this.setBombGenerator(nNumberofBombs, bombsData, 1);
+		}
 	}
 	setBombGenerator(nNumberofBombs, bombsData, i) {
 		const nRandomX = Math.floor(Math.random() * (886 - 197)) + 197;
@@ -306,10 +289,11 @@ class Level extends Phaser.Scene {
 			this.oTweenManager.bombAnimation(bomb);
 			i++;
 			i <= nNumberofBombs ?
-				generateBombs() :
 				setTimeout(() => {
-					generator.destroy();
-				}, 500);
+					generateBombs();
+				}, 500) :
+				generator.destroy();
+
 		}
 		generateBombs();
 	}

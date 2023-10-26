@@ -141,7 +141,7 @@ class Preload extends Phaser.Scene {
 	update() {
 		if (this.isGameLoaded1 && this.isGameLoaded2) {
 			this.scene.stop("Preload");
-			this.scene.start("Level");
+			this.scene.start("Home");
 		}
 	}
 

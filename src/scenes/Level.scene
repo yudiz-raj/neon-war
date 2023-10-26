@@ -114,7 +114,13 @@
                             "type": "Image",
                             "id": "fba03fa1-ef5d-44a7-a711-8be11fd7a74c",
                             "label": "replay_button",
+                            "useGameObjectName": true,
                             "scope": "CLASS",
+                            "hitArea.shape": "RECTANGLE",
+                            "hitArea.x": 5,
+                            "hitArea.y": -5,
+                            "hitArea.width": 305,
+                            "hitArea.height": 145,
                             "texture": {
                                 "key": "replay-button"
                             },
@@ -125,7 +131,13 @@
                             "type": "Image",
                             "id": "e34da4ea-250d-4bdd-a8c9-a6749951f767",
                             "label": "home_button",
+                            "useGameObjectName": true,
                             "scope": "CLASS",
+                            "hitArea.shape": "RECTANGLE",
+                            "hitArea.x": 5,
+                            "hitArea.y": -5,
+                            "hitArea.width": 100,
+                            "hitArea.height": 100,
                             "texture": {
                                 "key": "home-button"
                             },

@@ -42,6 +42,11 @@
                 "key": "GameManager"
             },
             {
+                "url": "src/scenes/Home.js",
+                "type": "sceneFile",
+                "key": "Home"
+            },
+            {
                 "url": "assets/images/game over/home-button.png",
                 "type": "image",
                 "key": "home-button"
@@ -55,6 +60,11 @@
                 "url": "src/scripts/LevelManager.js",
                 "type": "script",
                 "key": "LevelManager"
+            },
+            {
+                "url": "assets/images/splash screen/play-button.png",
+                "type": "image",
+                "key": "play-button"
             },
             {
                 "url": "assets/images/game over/replay-button.png",

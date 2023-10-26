@@ -1,0 +1,63 @@
+{
+    "id": "39e063e5-568b-4f46-bead-a78bafd80b6b",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Home",
+        "borderWidth": 1080,
+        "borderHeight": 1920
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "2302b960-414a-494c-93f7-d8568c13d6bf",
+            "label": "background",
+            "texture": {
+                "key": "background"
+            },
+            "x": 540,
+            "y": 960
+        },
+        {
+            "type": "Container",
+            "id": "f8a0ed74-16ef-48c1-a1a4-1c83dee6d4de",
+            "label": "container_bombs",
+            "scope": "CLASS"
+        },
+        {
+            "prefabId": "b793ca9e-df97-4de2-9169-fa8099ad7692",
+            "id": "a7f869f7-a8d9-4bb7-9dac-13f8635b9768",
+            "unlock": [
+                "x",
+                "y",
+                "alpha"
+            ],
+            "label": "logo",
+            "scope": "CLASS",
+            "x": 540,
+            "y": 473,
+            "alpha": 1
+        },
+        {
+            "type": "Image",
+            "id": "cde8eeb2-d02a-4b19-906e-510f5ee7a180",
+            "label": "play_button",
+            "useGameObjectName": true,
+            "scope": "CLASS",
+            "hitArea.shape": "PIXEL_PERFECT",
+            "texture": {
+                "key": "play-button"
+            },
+            "x": 540,
+            "y": 1498
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 4
+    }
+}
