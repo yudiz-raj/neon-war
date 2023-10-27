@@ -27,11 +27,10 @@ const init = () => {
 			default: "arcade",
 			arcade: {
 				gravity: { y: 0 },
-				debug: true,
+				debug: false,
 			},
 		}
 	});
-	localStorage.setItem('steelClashBestScore', localStorage.getItem('steelClashBestScore') == undefined ? 0 : localStorage.getItem('steelClashBestScore'));
 	game.scene.add("Preload", Preload);
 	game.scene.add("Level", Level);
 	game.scene.add("Boot", Boot, true);

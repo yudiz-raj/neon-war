@@ -19,10 +19,10 @@ class LevelManager {
             {
                 oBombs: {
                     bomb_0: {
-                        texture: "bomb-3"
+                        texture: "bomb-4"
                     },
                     bomb_1: {
-                        texture: "bomb-4"
+                        texture: "bomb-3"
                     },
                 }
             },
@@ -45,23 +45,23 @@ class LevelManager {
                         texture: "bomb-4"
                     },
                     bomb_1: {
-                        texture: "bomb-4"
+                        texture: "bomb-3"
                     },
                     bomb_2: {
-                        texture: "bomb-2"
+                        texture: "bomb-1"
                     },
                 }
             },
             {
                 oBombs: {
                     bomb_0: {
-                        texture: "bomb-4"
-                    },
-                    bomb_1: {
-                        texture: "bomb-3"
-                    },
-                    bomb_2: {
                         texture: "bomb-5"
+                    },
+                    bomb_1: {
+                        texture: "bomb-4"
+                    },
+                    bomb_2: {
+                        texture: "bomb-3"
                     },
                 }
             },

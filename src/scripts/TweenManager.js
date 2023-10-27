@@ -8,7 +8,7 @@ class TweenManager {
             scaleX: 1,
             scaleY: 1,
             ease: "Power2",
-            duration: 10,
+            duration: 50,
             onComplete: () => {
                 this.oScene.bombGroup.add(bomb);
                 switch (bomb.texture.key) {
@@ -32,7 +32,7 @@ class TweenManager {
                 }
                 bomb.body.setCollideWorldBounds();
                 bomb.body.setGravityY(2000);
-                const nRandomVelocity = Math.floor(Math.random() * (500 - (-500) + 10)) + (-500);
+                const nRandomVelocity = Math.floor(Math.random() * (500 - (-500) + 50)) + (-500);
                 bomb.body.setVelocity(nRandomVelocity, -500);
                 bomb.body.setBounce(1);
             }

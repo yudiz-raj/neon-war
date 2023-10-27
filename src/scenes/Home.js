@@ -55,6 +55,7 @@ class Home extends Phaser.Scene {
 		this.editorCreate();
 		this.oInputManager = new InputManager(this);
 		this.oTweenManager = new TweenManager(this);
+		localStorage.setItem('steelClashBestScore', localStorage.getItem('steelClashBestScore') == undefined ? 0 : localStorage.getItem('steelClashBestScore'));
 		const bomb = this.add.sprite(1150, -52, "fire-1");
 		bomb.angle = -135;
 		this.container_bombs.add(bomb);

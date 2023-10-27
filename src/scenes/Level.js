@@ -146,10 +146,23 @@ class Level extends Phaser.Scene {
 	/* START-USER-CODE */
 	// Write more your code here
 	setBullet() {
+		Number(localStorage.getItem('currentScore')) > 18 ? this.nTime = 120 : this.nTime = 250;
+		if (Number(localStorage.getItem('currentScore')) < 18) {
+			this.nTime = 250;
+		}
+		if (Number(localStorage.getItem('currentScore')) > 18 && Number(localStorage.getItem('currentScore')) < 50) {
+			this.nTime = 190;
+		}
+		if (Number(localStorage.getItem('currentScore')) > 50 && Number(localStorage.getItem('currentScore')) < 150) {
+			this.nTime = 150;
+		}
+		if (Number(localStorage.getItem('currentScore')) > 150) {
+			this.nTime = 120;
+		}
+
 		const bullet = this.bulletGroup.create(this.tank.x, this.tank.y - 130, "fire-1").setVelocityY(-1500);
 		bullet.body.setCircle(17, 20, 20);
 		bullet.setCollideWorldBounds();
-		// bullet.anims.play('fireAnimation', true);
 	}
 	setTank() {
 		this.tank = this.tankGroup.create(540, 1770, "tank");
@@ -163,7 +176,7 @@ class Level extends Phaser.Scene {
 		this.input.on("dragstart", () => {
 			this.interval = setInterval(() => {
 				this.setBullet();
-			}, 250);
+			}, this.nTime == undefined ? 250 : this.nTime);
 		});
 		this.input.on('drag', (pointer, gameObject, dragX) => {
 			gameObject.x = dragX;
@@ -240,8 +253,10 @@ class Level extends Phaser.Scene {
 			this.oTweenManager.popUpAnimation(popUpText);
 			localStorage.setItem('currentScore', this.nScore);
 			if (this.container_Bombs.list.length == 0) {
-				this.nLevelCount += 1;
-				this.checkForLevel();
+				// this.nLevelCount += 1;
+				setTimeout(() => {
+					this.checkForLevel();
+				}, 200);
 			}
 		});
 		this.physics.add.collider(this.tankGroup, this.bombGroup, (tank, bomb) => {
@@ -263,12 +278,13 @@ class Level extends Phaser.Scene {
 		});
 	}
 	checkForLevel() {
+		this.nLevelCount += 1;
 		if (this.nLevelCount > 7) {
 			this.nLevelCount = 3;
 		}
 		let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
 		let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
-		if (!this.container_result.visible) {
+		if (!this.container_result.visible && this.container_Bombs.list.length == 0) {
 			this.setBombGenerator(nNumberofBombs, bombsData, 1);
 		}
 	}
@@ -279,7 +295,7 @@ class Level extends Phaser.Scene {
 		this.container_bombGenerator.add(generator);
 		setTimeout(() => {
 			this.setBombs(nNumberofBombs, bombsData, generator, i);
-		}, 500);
+		}, 200);
 	}
 	setBombs(nNumberofBombs, bombsData, generator, i) {
 
@@ -291,7 +307,7 @@ class Level extends Phaser.Scene {
 			i <= nNumberofBombs ?
 				setTimeout(() => {
 					generateBombs();
-				}, 500) :
+				}, 300) :
 				generator.destroy();
 
 		}
@@ -299,16 +315,16 @@ class Level extends Phaser.Scene {
 	}
 	controlBombVelocity(bomb) {
 		if (bomb.body.velocity.x < 0) {
-			bomb.body.velocity.x += 100;
+			bomb.body.velocity.x = -300;
 		}
 		if (bomb.body.velocity.x > 0) {
-			bomb.body.velocity.x -= 100;
+			bomb.body.velocity.x = 300;
 		}
 		if (bomb.body.velocity.y < 0) {
-			bomb.body.velocity.y += 150;
+			bomb.body.velocity.y += 100;
 		}
 		if (bomb.body.velocity.x > 0) {
-			bomb.body.velocity.y -= 150;
+			bomb.body.velocity.y -= 100;
 		}
 	}
 	update() {
