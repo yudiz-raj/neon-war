@@ -5,7 +5,7 @@ class LevelManager {
             {
                 oBombs: {
                     bomb_0: {
-                        texture: "bomb-1",
+                        texture: "bomb-5",
                     },
                 }
             },

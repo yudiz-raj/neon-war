@@ -13,13 +13,13 @@ class TweenManager {
                 this.oScene.bombGroup.add(bomb);
                 switch (bomb.texture.key) {
                     case "bomb-1":
-                        bomb.body.setCircle(60, 50, 30);
+                        bomb.body.setCircle(57, 25, 0);
                         break;
                     case "bomb-2":
                         bomb.body.setCircle(70, 20, 15);
                         break;
                     case "bomb-3":
-                        bomb.body.setCircle(80, 70, 45);
+                        bomb.body.setCircle(80, 30, 0);
                         break;
                     case "bomb-4":
                         bomb.body.setCircle(85, 45, 25);
