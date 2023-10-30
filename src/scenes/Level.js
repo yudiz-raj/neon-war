@@ -176,7 +176,7 @@ class Level extends Phaser.Scene {
 		this.input.on("dragstart", () => {
 			this.interval = setInterval(() => {
 				this.setBullet();
-			}, this.nTime == undefined ? 250 : this.nTime);
+			}, this.nTime);
 		});
 		this.input.on('drag', (pointer, gameObject, dragX) => {
 			gameObject.x = dragX;
@@ -190,6 +190,7 @@ class Level extends Phaser.Scene {
 		this.editorCreate();
 		this.nScore = 0;
 		this.nLevelCount = 1;
+		this.nTime = 250;
 		localStorage.setItem('currentScore', 0);
 
 		this.oLevelManager = new LevelManager(this);
@@ -225,19 +226,19 @@ class Level extends Phaser.Scene {
 					this.nScore += 1;
 					this.controlBombVelocity(bomb);
 					bomb.setTexture("bomb-1");
-					bomb.body.setCircle(60, 50, 30);
+					bomb.body.setCircle(57, 25, 0);
 					break;
 				case "bomb-3":
 					this.nScore += 3;
 					this.controlBombVelocity(bomb);
 					bomb.setTexture("bomb-2");
-					bomb.body.setCircle(60, 50, 30);
+					bomb.body.setCircle(70, 20, 15);
 					break;
 				case "bomb-4":
 					this.nScore += 5;
 					this.controlBombVelocity(bomb);
 					bomb.setTexture("bomb-3");
-					bomb.body.setCircle(80, 70, 45);
+					bomb.body.setCircle(80, 30, 0);
 					break;
 				case "bomb-5":
 					this.nScore += 5;
