@@ -213,9 +213,7 @@ class Level extends Phaser.Scene {
 		});
 		this.physics.add.collider(this.bulletGroup, this.bombGroup, (bullet, bomb) => {
 			bullet.anims.play('blastAnimation', true).once('animationcomplete', () => {
-				setTimeout(() => {
-					bullet.destroy();
-				}, 200);
+				bullet.destroy();
 			});
 			switch (bomb.texture.key) {
 				case "bomb-1":
@@ -265,7 +263,9 @@ class Level extends Phaser.Scene {
 			bomb.destroy();
 			const blastTank = this.add.sprite(tank.x, tank.y, "tank");
 			tank.destroy();
-			blastTank.anims.play('blastAnimation', true);
+			blastTank.anims.play('blastAnimation', true).once('animationcomplete', () => {
+				blastTank.destroy();
+			});;
 			Number(localStorage.getItem('steelClashBestScore')) <= Number(this.nScore) ?
 				localStorage.setItem('steelClashBestScore', Number(this.nScore)) :
 				localStorage.setItem('steelClashBestScore', Number(localStorage.getItem('steelClashBestScore')));

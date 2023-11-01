@@ -22,12 +22,6 @@ class Preload extends Phaser.Scene {
 	/** @returns {void} */
 	editorCreate() {
 
-		// progress
-		const progress = this.add.text(540, 960, "", {});
-		progress.setOrigin(0.5, 0.5);
-		progress.text = "0%";
-		progress.setStyle({ "fontSize": "54px" });
-
 		// background
 		this.add.image(540, 960, "background");
 
@@ -46,12 +40,19 @@ class Preload extends Phaser.Scene {
 		this.add.existing(logo);
 		logo.alpha = 1;
 
-		// progress (components)
-		new PreloadText(progress);
+		// bomb
+		const bomb = this.add.sprite(525, 2034, "fire-1");
+		bomb.angle = 10;
+
+		// bomb_1
+		const bomb_1 = this.add.sprite(531.1997560279415, 2032.0388312772975, "fire-1");
+		bomb_1.angle = -10;
 
 		this.innerBar = innerBar;
 		this.load_bomb = load_bomb;
 		this.logo = logo;
+		this.bomb = bomb;
+		this.bomb_1 = bomb_1;
 
 		this.events.emit("scene-awake");
 	}
@@ -62,16 +63,39 @@ class Preload extends Phaser.Scene {
 	load_bomb;
 	/** @type {LogoPrefab} */
 	logo;
+	/** @type {Phaser.GameObjects.Sprite} */
+	bomb;
+	/** @type {Phaser.GameObjects.Sprite} */
+	bomb_1;
 
 	/* START-USER-CODE */
 
 	// Write your code here
+	bombAnimation(bomb, X, Y) {
+		bomb.anims.play("fireAnimation", true);
+		this.tweens.add({
+			targets: bomb,
+			x: X,
+			y: Y,
+			duration: 1000,
+			onComplete: () => {
+				bomb.anims.play("blastAnimation", true).once('animationcomplete', () => {
+					this.logo.game_title.setTexture("game-title");
+					setTimeout(() => {
+						bomb.destroy();
+					}, 100);
+				});
+			}
+		});
+	}
 
 	preload() {
 
 		this.editorCreate();
 
 		this.editorPreload();
+		this.bombAnimation(this.bomb, 696, 627);
+		this.bombAnimation(this.bomb_1, 215, 614);
 		this.isGameLoaded1 = false;
 		this.isGameLoaded2 = false;
 		this.load.on(Phaser.Loader.Events.COMPLETE, (p) => {
@@ -90,7 +114,6 @@ class Preload extends Phaser.Scene {
 		);
 
 		this.innerBar.setMask(this.maskGraphics.createGeometryMask());
-
 		const loadingDuration = 3000;
 		const intervalDuration = 30;
 		const numIntervals = loadingDuration / intervalDuration;
@@ -117,7 +140,6 @@ class Preload extends Phaser.Scene {
 		};
 		const progressInterval = setInterval(updateProgressBar, intervalDuration);
 	}
-
 	update() {
 		if (this.isGameLoaded1 && this.isGameLoaded2) {
 			this.scene.stop("Preload");

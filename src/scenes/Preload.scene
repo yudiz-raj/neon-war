@@ -13,20 +13,6 @@
     },
     "displayList": [
         {
-            "type": "Text",
-            "id": "2ce42443-5227-4c9b-b498-e81f9a21cde3",
-            "label": "progress",
-            "components": [
-                "PreloadText"
-            ],
-            "x": 540,
-            "y": 960,
-            "originX": 0.5,
-            "originY": 0.5,
-            "text": "0%",
-            "fontSize": "54px"
-        },
-        {
             "type": "Image",
             "id": "33e98ebf-24b6-48c0-ac02-e377f2dc7ad3",
             "label": "background",
@@ -82,6 +68,30 @@
             "x": 540,
             "y": 473,
             "alpha": 1
+        },
+        {
+            "type": "Sprite",
+            "id": "5723a7ce-a13a-4fcf-8357-e20a1105f52f",
+            "label": "bomb",
+            "scope": "CLASS",
+            "texture": {
+                "key": "fire-1"
+            },
+            "x": 525,
+            "y": 2034,
+            "angle": 10
+        },
+        {
+            "type": "Sprite",
+            "id": "af4132b1-a183-4fc5-a2e5-97b7ab5935ce",
+            "label": "bomb_1",
+            "scope": "CLASS",
+            "texture": {
+                "key": "fire-1"
+            },
+            "x": 531.1997560279415,
+            "y": 2032.0388312772975,
+            "angle": -10
         }
     ],
     "plainObjects": [],

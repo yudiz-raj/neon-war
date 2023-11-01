@@ -40,8 +40,9 @@
                     "type": "Image",
                     "id": "ad263715-f8f1-4eb4-aafd-86b8389209c9",
                     "label": "game_title",
+                    "scope": "CLASS",
                     "texture": {
-                        "key": "game-title"
+                        "key": "game-title-1"
                     },
                     "x": -1,
                     "y": 172

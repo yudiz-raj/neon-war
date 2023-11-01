@@ -57,6 +57,11 @@
                 "key": "game-title"
             },
             {
+                "url": "assets/images/splash screen/game-title-1.png",
+                "type": "image",
+                "key": "game-title-1"
+            },
+            {
                 "url": "assets/images/splash screen/load.png",
                 "type": "image",
                 "key": "load"

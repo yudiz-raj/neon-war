@@ -56,6 +56,7 @@ class Home extends Phaser.Scene {
 		this.oInputManager = new InputManager(this);
 		this.oTweenManager = new TweenManager(this);
 		localStorage.setItem('steelClashBestScore', localStorage.getItem('steelClashBestScore') == undefined ? 0 : localStorage.getItem('steelClashBestScore'));
+		this.logo.game_title.setTexture("game-title");
 		const bomb = this.add.sprite(1150, -52, "fire-1");
 		bomb.angle = -135;
 		this.container_bombs.add(bomb);
@@ -76,7 +77,9 @@ class Home extends Phaser.Scene {
 			onComplete: () => {
 				target.setScale(1.5);
 				target.anims.play("blastAnimation", true).once('animationcomplete', () => {
-					target.destroy();
+					setTimeout(() => {
+						target.destroy();
+					}, 1000);
 					const bomb = this.add.sprite(targetX, -52, "fire-1");
 					bomb.angle = -angle;
 					this.container_bombs.add(bomb);

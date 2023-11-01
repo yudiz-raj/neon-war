@@ -60,6 +60,7 @@ class TweenManager {
         this.instructionDestroyTween.stop();
     }
     buttonAnimation(target) {
+        target.disableInteractive();
         this.oScene.tweens.add({
             targets: target,
             scale: "-=0.08",
@@ -82,6 +83,7 @@ class TweenManager {
                     default:
                         break;
                 }
+                target.setInteractive();
             }
         });
     }

@@ -18,7 +18,7 @@ class LogoPrefab extends Phaser.GameObjects.Container {
 		this.add(logo_tank);
 
 		// game_title
-		const game_title = scene.add.image(-1, 172, "game-title");
+		const game_title = scene.add.image(-1, 172, "game-title-1");
 		this.add(game_title);
 
 		// smoke
@@ -26,6 +26,7 @@ class LogoPrefab extends Phaser.GameObjects.Container {
 		this.add(smoke);
 
 		this.blast = blast;
+		this.game_title = game_title;
 
 		/* START-USER-CTR-CODE */
 		// Write your code here.
@@ -34,6 +35,8 @@ class LogoPrefab extends Phaser.GameObjects.Container {
 
 	/** @type {Phaser.GameObjects.Image} */
 	blast;
+	/** @type {Phaser.GameObjects.Image} */
+	game_title;
 
 	/* START-USER-CODE */
 
