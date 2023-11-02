@@ -175,6 +175,7 @@ class Level extends Phaser.Scene {
 		this.input.setDraggable(this.tank);
 		this.input.on("dragstart", () => {
 			this.interval = setInterval(() => {
+				this.oSoundManager.playSound(this.oSoundManager.shotSound, false);
 				this.setBullet();
 			}, this.nTime);
 		});
@@ -186,6 +187,18 @@ class Level extends Phaser.Scene {
 			clearInterval(this.interval);
 		});
 	}
+	setAudio() {
+		const isAudioOn = (flag) => {
+			// flag ? this.sound_button.setTexture("Sound") : this.sound_button.setTexture("Mute");
+			localStorage.setItem("isSteelClashAudioOn", flag);
+			this.sound.mute = !flag;
+		}
+		isAudioOn(JSON.parse(localStorage.getItem("isSteelClashAudioOn")))
+		// this.sound_button.on('pointerdown', () => {
+		// 	this.oSoundManager.playSound(this.oSoundManager.clickSound, false);
+		// 	isAudioOn(!JSON.parse(localStorage.getItem("isSteelClashAudioOn")));
+		// });
+	}
 	create() {
 		this.editorCreate();
 		this.nScore = 0;
@@ -196,12 +209,14 @@ class Level extends Phaser.Scene {
 		this.oLevelManager = new LevelManager(this);
 		this.oTweenManager = new TweenManager(this);
 		this.oInputManager = new InputManager(this);
+		this.oSoundManager = new SoundManager(this);
 
 		this.bombGroup = this.physics.add.group();
 		this.tankGroup = this.physics.add.group();
 		this.bulletGroup = this.physics.add.group();
 		this.setTank();
 		this.scroll();
+		this.setAudio();
 		let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
 		let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
 		this.oTweenManager.instructionAnimation();
@@ -213,6 +228,7 @@ class Level extends Phaser.Scene {
 		});
 		this.physics.add.collider(this.bulletGroup, this.bombGroup, (bullet, bomb) => {
 			bullet.anims.play('blastAnimation', true).once('animationcomplete', () => {
+				this.oSoundManager.playSound(this.oSoundManager.bombBlastSound, false);
 				bullet.destroy();
 			});
 			switch (bomb.texture.key) {
@@ -252,7 +268,6 @@ class Level extends Phaser.Scene {
 			this.oTweenManager.popUpAnimation(popUpText);
 			localStorage.setItem('currentScore', this.nScore);
 			if (this.container_Bombs.list.length == 0) {
-				// this.nLevelCount += 1;
 				setTimeout(() => {
 					this.checkForLevel();
 				}, 200);
@@ -264,6 +279,7 @@ class Level extends Phaser.Scene {
 			const blastTank = this.add.sprite(tank.x, tank.y, "tank");
 			tank.destroy();
 			blastTank.anims.play('blastAnimation', true).once('animationcomplete', () => {
+				this.oSoundManager.playSound(this.oSoundManager.tankBlastSound, false);
 				blastTank.destroy();
 			});;
 			Number(localStorage.getItem('steelClashBestScore')) <= Number(this.nScore) ?

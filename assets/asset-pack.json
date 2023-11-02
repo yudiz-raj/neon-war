@@ -2,6 +2,13 @@
     "section1": {
         "files": [
             {
+                "url": [
+                    "assets/sounds/background-music.mp3"
+                ],
+                "type": "audio",
+                "key": "background-music"
+            },
+            {
                 "url": "assets/images/game over/black-layer.png",
                 "type": "image",
                 "key": "black-layer"
@@ -30,6 +37,20 @@
                 "url": "assets/images/game play/bomb-5.png",
                 "type": "image",
                 "key": "bomb-5"
+            },
+            {
+                "url": [
+                    "assets/sounds/bombBlast-sound.mp3"
+                ],
+                "type": "audio",
+                "key": "bombBlast-sound"
+            },
+            {
+                "url": [
+                    "assets/sounds/click-sound.mp3"
+                ],
+                "type": "audio",
+                "key": "click-sound"
             },
             {
                 "url": "assets/images/game over/game-over-board.png",
@@ -72,6 +93,13 @@
                 "key": "replay-button"
             },
             {
+                "url": [
+                    "assets/sounds/shot-sound.mp3"
+                ],
+                "type": "audio",
+                "key": "shot-sound"
+            },
+            {
                 "url": "src/scripts/SocketManager.js",
                 "type": "script",
                 "key": "SocketManager"
@@ -85,6 +113,13 @@
                 "url": "assets/images/game play/tank.png",
                 "type": "image",
                 "key": "tank"
+            },
+            {
+                "url": [
+                    "assets/sounds/tankBlast-sound.mp3"
+                ],
+                "type": "audio",
+                "key": "tankBlast-sound"
             },
             {
                 "url": "src/scripts/TweenManager.js",

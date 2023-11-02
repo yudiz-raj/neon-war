@@ -12,6 +12,7 @@ class InputManager {
             button.setScale(button.scale -= 0.05);
         });
         button.setInteractive().on("pointerdown", () => {
+            this.oScene.oSoundManager.playSound(this.oScene.oSoundManager.clickSound, false);
             this.oScene.input.setDefaultCursor("default");
             this.oScene.oTweenManager.buttonAnimation(button);
         });

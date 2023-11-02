@@ -11,7 +11,6 @@ const init = () => {
 		width: 1080,
 		height: 1920,
 		type: Phaser.AUTO,
-		// backgroundColor: "#242424",
 		transparent: true,
 		parent: "game-division",
 		scale: {
@@ -32,6 +31,7 @@ const init = () => {
 			},
 		}
 	});
+	localStorage.setItem("isSteelClashAudioOn", true);
 	game.scene.add("Preload", Preload);
 	game.scene.add("Level", Level);
 	game.scene.add("Boot", Boot, true);

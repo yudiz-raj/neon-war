@@ -49,12 +49,27 @@ class Home extends Phaser.Scene {
 	/* START-USER-CODE */
 
 	// Write your code here
-
+	setAudio() {
+		const isAudioOn = (flag) => {
+			// flag ? this.sound_button.setTexture("Sound") : this.sound_button.setTexture("Mute");
+			localStorage.setItem("isSteelClashAudioOn", flag);
+			this.sound.mute = !flag;
+		}
+		isAudioOn(JSON.parse(localStorage.getItem("isSteelClashAudioOn")))
+		// this.sound_button.on('pointerdown', () => {
+		// 	this.oSoundManager.playSound(this.oSoundManager.clickSound, false);
+		// 	isAudioOn(!JSON.parse(localStorage.getItem("isSteelClashAudioOn")));
+		// });
+	}
 	create() {
 
 		this.editorCreate();
 		this.oInputManager = new InputManager(this);
 		this.oTweenManager = new TweenManager(this);
+		this.oSoundManager = new SoundManager(this);
+
+		this.setAudio();
+		this.oSoundManager.playSound(this.oSoundManager.backgroundMusic, true);
 		localStorage.setItem('steelClashBestScore', localStorage.getItem('steelClashBestScore') == undefined ? 0 : localStorage.getItem('steelClashBestScore'));
 		this.logo.game_title.setTexture("game-title");
 		const bomb = this.add.sprite(1150, -52, "fire-1");
@@ -77,6 +92,7 @@ class Home extends Phaser.Scene {
 			onComplete: () => {
 				target.setScale(1.5);
 				target.anims.play("blastAnimation", true).once('animationcomplete', () => {
+					this.oSoundManager.playSound(this.oSoundManager.bombBlastSound, false);
 					setTimeout(() => {
 						target.destroy();
 					}, 1000);
