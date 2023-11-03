@@ -53,6 +53,7 @@
             ],
             "frameRate": 10,
             "skipMissedFrames": true,
+            "yoyo": true,
             "showBeforeDelay": false
         }
     ],

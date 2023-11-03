@@ -31,7 +31,8 @@ const init = () => {
 			},
 		}
 	});
-	localStorage.setItem("isSteelClashAudioOn", true);
+	localStorage.setItem("isSteelClashSoundOn", true);
+	localStorage.setItem("isSteelClashMusicOn", true);
 	game.scene.add("Preload", Preload);
 	game.scene.add("Level", Level);
 	game.scene.add("Boot", Boot, true);

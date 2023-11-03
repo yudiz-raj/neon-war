@@ -51,6 +51,30 @@
             },
             "x": 540,
             "y": 1498
+        },
+        {
+            "type": "Image",
+            "id": "5d469432-4645-4559-baad-f089106b572a",
+            "label": "music_button",
+            "useGameObjectName": true,
+            "scope": "CLASS",
+            "texture": {
+                "key": "music-on"
+            },
+            "x": 102,
+            "y": 104
+        },
+        {
+            "type": "Image",
+            "id": "42c5e22f-ac02-4c64-a50c-192b01619429",
+            "label": "sound_button",
+            "useGameObjectName": true,
+            "scope": "CLASS",
+            "texture": {
+                "key": "sound-on"
+            },
+            "x": 978,
+            "y": 104
         }
     ],
     "plainObjects": [],

@@ -32,9 +32,19 @@ class Home extends Phaser.Scene {
 		play_button.name = "play_button";
 		play_button.setInteractive(this.input.makePixelPerfect());
 
+		// music_button
+		const music_button = this.add.image(102, 104, "music-on");
+		music_button.name = "music_button";
+
+		// sound_button
+		const sound_button = this.add.image(978, 104, "sound-on");
+		sound_button.name = "sound_button";
+
 		this.container_bombs = container_bombs;
 		this.logo = logo;
 		this.play_button = play_button;
+		this.music_button = music_button;
+		this.sound_button = sound_button;
 
 		this.events.emit("scene-awake");
 	}
@@ -45,21 +55,39 @@ class Home extends Phaser.Scene {
 	logo;
 	/** @type {Phaser.GameObjects.Image} */
 	play_button;
+	/** @type {Phaser.GameObjects.Image} */
+	music_button;
+	/** @type {Phaser.GameObjects.Image} */
+	sound_button;
 
 	/* START-USER-CODE */
 
 	// Write your code here
 	setAudio() {
-		const isAudioOn = (flag) => {
-			// flag ? this.sound_button.setTexture("Sound") : this.sound_button.setTexture("Mute");
-			localStorage.setItem("isSteelClashAudioOn", flag);
-			this.sound.mute = !flag;
+		const isMusicOn = (flag) => {
+			flag ? this.music_button.setTexture("music-on") : this.music_button.setTexture("music-off");
+			localStorage.setItem("isSteelClashMusicOn", flag);
+			this.oSoundManager.backgroundMusic.setMute(!flag);
+			this.oSoundManager.playSound(this.oSoundManager.backgroundMusic, true);
 		}
-		isAudioOn(JSON.parse(localStorage.getItem("isSteelClashAudioOn")))
-		// this.sound_button.on('pointerdown', () => {
-		// 	this.oSoundManager.playSound(this.oSoundManager.clickSound, false);
-		// 	isAudioOn(!JSON.parse(localStorage.getItem("isSteelClashAudioOn")));
-		// });
+		const isSoundOn = (flag) => {
+			flag ? this.sound_button.setTexture("sound-on") : this.sound_button.setTexture("sound-off");
+			localStorage.setItem('isSteelClashSoundOn', flag);
+			this.oSoundManager.clickSound.setMute(!flag);
+			this.oSoundManager.bombBlastSound.setMute(!flag);
+			this.oSoundManager.shotSound.setMute(!flag);
+			this.oSoundManager.tankBlastSound.setMute(!flag);
+		}
+		this.sound_button.setInteractive().on('pointerdown', () => {
+			this.oSoundManager.playSound(this.oSoundManager.clickSound, false);
+			isSoundOn(!JSON.parse(localStorage.getItem("isSteelClashSoundOn")));
+		});
+		this.music_button.setInteractive().on('pointerdown', () => {
+			this.oSoundManager.playSound(this.oSoundManager.clickSound, false);
+			isMusicOn(!JSON.parse(localStorage.getItem("isSteelClashMusicOn")));
+		});
+		isMusicOn(JSON.parse(localStorage.getItem("isSteelClashMusicOn")));
+		isSoundOn(JSON.parse(localStorage.getItem("isSteelClashSoundOn")));
 	}
 	create() {
 
@@ -69,41 +97,16 @@ class Home extends Phaser.Scene {
 		this.oSoundManager = new SoundManager(this);
 
 		this.setAudio();
-		this.oSoundManager.playSound(this.oSoundManager.backgroundMusic, true);
 		localStorage.setItem('steelClashBestScore', localStorage.getItem('steelClashBestScore') == undefined ? 0 : localStorage.getItem('steelClashBestScore'));
 		this.logo.game_title.setTexture("game-title");
 		const bomb = this.add.sprite(1150, -52, "fire-1");
 		bomb.angle = -135;
 		this.container_bombs.add(bomb);
-		this.blastAnimation(bomb);
+		this.oTweenManager.blastAnimation(bomb,this.logo.game_title);
+		// this.oTweenManager.titleAnimation(this.logo.game_title);
 		this.oInputManager.buttonClick(this.play_button);
-	}
-	blastAnimation(target) {
-		let targetX = target.x;
-		let angle = target.angle;
-		target.x == 1150 ? targetX = -121 : targetX = 1150;
-		target.anims.play("fireAnimation", true);
-		this.tweens.add({
-			targets: target,
-			x: 551,
-			y: 471,
-			duration: 1000,
-			delay: 1000,
-			onComplete: () => {
-				target.setScale(1.5);
-				target.anims.play("blastAnimation", true).once('animationcomplete', () => {
-					this.oSoundManager.playSound(this.oSoundManager.bombBlastSound, false);
-					setTimeout(() => {
-						target.destroy();
-					}, 1000);
-					const bomb = this.add.sprite(targetX, -52, "fire-1");
-					bomb.angle = -angle;
-					this.container_bombs.add(bomb);
-					this.blastAnimation(bomb);
-				});
-				this.cameras.main.shake(200, 0.002);
-			}
-		});
+		this.oInputManager.buttonClick(this.music_button);
+		this.oInputManager.buttonClick(this.music_button);
 	}
 
 	/* END-USER-CODE */

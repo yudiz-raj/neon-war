@@ -83,6 +83,16 @@
                 "key": "LevelManager"
             },
             {
+                "url": "assets/images/game play/music-off.png",
+                "type": "image",
+                "key": "music-off"
+            },
+            {
+                "url": "assets/images/game play/music-on.png",
+                "type": "image",
+                "key": "music-on"
+            },
+            {
                 "url": "assets/images/splash screen/play-button.png",
                 "type": "image",
                 "key": "play-button"
@@ -103,6 +113,16 @@
                 "url": "src/scripts/SocketManager.js",
                 "type": "script",
                 "key": "SocketManager"
+            },
+            {
+                "url": "assets/images/game play/sound-off.png",
+                "type": "image",
+                "key": "sound-off"
+            },
+            {
+                "url": "assets/images/game play/sound-on.png",
+                "type": "image",
+                "key": "sound-on"
             },
             {
                 "url": "src/scripts/SoundManager.js",

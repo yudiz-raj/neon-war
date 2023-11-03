@@ -179,22 +179,46 @@
                             "strokeThickness": 2
                         }
                     ]
+                },
+                {
+                    "type": "Text",
+                    "id": "9d9f0933-8376-413b-9ae9-fa2cb2727dc5",
+                    "label": "instruction_text",
+                    "scope": "CLASS",
+                    "x": 540,
+                    "y": 1792,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "TOUCH AND DRAG THE TANK TO MOVE",
+                    "fontFamily": "Score",
+                    "fontSize": "46px",
+                    "color": "#FFE633"
+                },
+                {
+                    "type": "Image",
+                    "id": "86606479-24f1-4c30-9f25-2815ac2990f1",
+                    "label": "music_button",
+                    "useGameObjectName": true,
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "music-on"
+                    },
+                    "x": 102,
+                    "y": 104
+                },
+                {
+                    "type": "Image",
+                    "id": "7f0e2371-9d86-43c6-9482-8a4a6608c8a2",
+                    "label": "sound_button",
+                    "useGameObjectName": true,
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "sound-on"
+                    },
+                    "x": 978,
+                    "y": 104
                 }
             ]
-        },
-        {
-            "type": "Text",
-            "id": "9d9f0933-8376-413b-9ae9-fa2cb2727dc5",
-            "label": "instruction_text",
-            "scope": "CLASS",
-            "x": 540,
-            "y": 1792,
-            "originX": 0.5,
-            "originY": 0.5,
-            "text": "TOUCH AND DRAG THE TANK TO MOVE",
-            "fontFamily": "Score",
-            "fontSize": "46px",
-            "color": "#FFE633"
         }
     ],
     "plainObjects": [],

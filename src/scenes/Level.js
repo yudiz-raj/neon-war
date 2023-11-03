@@ -101,6 +101,17 @@ class Level extends Phaser.Scene {
 		instruction_text.setOrigin(0.5, 0.5);
 		instruction_text.text = "TOUCH AND DRAG THE TANK TO MOVE";
 		instruction_text.setStyle({ "color": "#FFE633", "fontFamily": "Score", "fontSize": "46px" });
+		body.add(instruction_text);
+
+		// music_button
+		const music_button = this.add.image(102, 104, "music-on");
+		music_button.name = "music_button";
+		body.add(music_button);
+
+		// sound_button
+		const sound_button = this.add.image(978, 104, "sound-on");
+		sound_button.name = "sound_button";
+		body.add(sound_button);
 
 		this.warArea = warArea;
 		this.container_warArea = container_warArea;
@@ -114,6 +125,8 @@ class Level extends Phaser.Scene {
 		this.bestScore = bestScore;
 		this.container_result = container_result;
 		this.instruction_text = instruction_text;
+		this.music_button = music_button;
+		this.sound_button = sound_button;
 
 		this.events.emit("scene-awake");
 	}
@@ -142,6 +155,10 @@ class Level extends Phaser.Scene {
 	container_result;
 	/** @type {Phaser.GameObjects.Text} */
 	instruction_text;
+	/** @type {Phaser.GameObjects.Image} */
+	music_button;
+	/** @type {Phaser.GameObjects.Image} */
+	sound_button;
 
 	/* START-USER-CODE */
 	// Write more your code here
@@ -188,16 +205,30 @@ class Level extends Phaser.Scene {
 		});
 	}
 	setAudio() {
-		const isAudioOn = (flag) => {
-			// flag ? this.sound_button.setTexture("Sound") : this.sound_button.setTexture("Mute");
-			localStorage.setItem("isSteelClashAudioOn", flag);
-			this.sound.mute = !flag;
+		const isMusicOn = (flag) => {
+			flag ? this.music_button.setTexture("music-on") : this.music_button.setTexture("music-off");
+			localStorage.setItem("isSteelClashMusicOn", flag);
+			this.oSoundManager.backgroundMusic.setMute(!flag);
+			this.oSoundManager.playSound(this.oSoundManager.backgroundMusic, true);
 		}
-		isAudioOn(JSON.parse(localStorage.getItem("isSteelClashAudioOn")))
-		// this.sound_button.on('pointerdown', () => {
-		// 	this.oSoundManager.playSound(this.oSoundManager.clickSound, false);
-		// 	isAudioOn(!JSON.parse(localStorage.getItem("isSteelClashAudioOn")));
-		// });
+		const isSoundOn = (flag) => {
+			flag ? this.sound_button.setTexture("sound-on") : this.sound_button.setTexture("sound-off");
+			localStorage.setItem('isSteelClashSoundOn', flag);
+			this.oSoundManager.clickSound.setMute(!flag);
+			this.oSoundManager.bombBlastSound.setMute(!flag);
+			this.oSoundManager.shotSound.setMute(!flag);
+			this.oSoundManager.tankBlastSound.setMute(!flag);
+		}
+		this.sound_button.setInteractive().on('pointerdown', () => {
+			this.oSoundManager.playSound(this.oSoundManager.clickSound, false);
+			isSoundOn(!JSON.parse(localStorage.getItem("isSteelClashSoundOn")));
+		});
+		this.music_button.setInteractive().on('pointerdown', () => {
+			this.oSoundManager.playSound(this.oSoundManager.clickSound, false);
+			isMusicOn(!JSON.parse(localStorage.getItem("isSteelClashMusicOn")));
+		});
+		isMusicOn(JSON.parse(localStorage.getItem("isSteelClashMusicOn")));
+		isSoundOn(JSON.parse(localStorage.getItem("isSteelClashSoundOn")));
 	}
 	create() {
 		this.editorCreate();
@@ -217,6 +248,8 @@ class Level extends Phaser.Scene {
 		this.setTank();
 		this.scroll();
 		this.setAudio();
+		this.oInputManager.buttonClick(this.music_button);
+		this.oInputManager.buttonClick(this.music_button);
 		let nNumberofBombs = Object.keys(this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs).length;
 		let bombsData = this.oLevelManager.aLevel[this.nLevelCount - 1].oBombs;
 		this.oTweenManager.instructionAnimation();
@@ -227,8 +260,8 @@ class Level extends Phaser.Scene {
 			}, 700);
 		});
 		this.physics.add.collider(this.bulletGroup, this.bombGroup, (bullet, bomb) => {
+			this.oSoundManager.playSound(this.oSoundManager.bombBlastSound, false);
 			bullet.anims.play('blastAnimation', true).once('animationcomplete', () => {
-				this.oSoundManager.playSound(this.oSoundManager.bombBlastSound, false);
 				bullet.destroy();
 			});
 			switch (bomb.texture.key) {
@@ -278,8 +311,8 @@ class Level extends Phaser.Scene {
 			bomb.destroy();
 			const blastTank = this.add.sprite(tank.x, tank.y, "tank");
 			tank.destroy();
+			this.oSoundManager.playSound(this.oSoundManager.tankBlastSound, false);
 			blastTank.anims.play('blastAnimation', true).once('animationcomplete', () => {
-				this.oSoundManager.playSound(this.oSoundManager.tankBlastSound, false);
 				blastTank.destroy();
 			});;
 			Number(localStorage.getItem('steelClashBestScore')) <= Number(this.nScore) ?
