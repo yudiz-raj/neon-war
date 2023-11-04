@@ -17,7 +17,7 @@ class Home extends Phaser.Scene {
 	editorCreate() {
 
 		// background
-		this.add.image(540, 960, "background");
+		const background = this.add.image(540, 960, "background");
 
 		// container_bombs
 		const container_bombs = this.add.container(0, 0);
@@ -40,6 +40,7 @@ class Home extends Phaser.Scene {
 		const sound_button = this.add.image(978, 104, "sound-on");
 		sound_button.name = "sound_button";
 
+		this.background = background;
 		this.container_bombs = container_bombs;
 		this.logo = logo;
 		this.play_button = play_button;
@@ -49,6 +50,8 @@ class Home extends Phaser.Scene {
 		this.events.emit("scene-awake");
 	}
 
+	/** @type {Phaser.GameObjects.Image} */
+	background;
 	/** @type {Phaser.GameObjects.Container} */
 	container_bombs;
 	/** @type {LogoPrefab} */
@@ -96,14 +99,16 @@ class Home extends Phaser.Scene {
 		this.oTweenManager = new TweenManager(this);
 		this.oSoundManager = new SoundManager(this);
 
+		this.tankCamera = this.cameras.add(0, 0, this.sys.game.config.width, this.sys.game.config.height);
+		this.tankCamera.ignore([this.play_button, this.sound_button, this.music_button, this.container_bombs, this.background]);
+
 		this.setAudio();
 		localStorage.setItem('steelClashBestScore', localStorage.getItem('steelClashBestScore') == undefined ? 0 : localStorage.getItem('steelClashBestScore'));
 		this.logo.game_title.setTexture("game-title");
 		const bomb = this.add.sprite(1150, -52, "fire-1");
 		bomb.angle = -135;
 		this.container_bombs.add(bomb);
-		this.oTweenManager.blastAnimation(bomb,this.logo.game_title);
-		// this.oTweenManager.titleAnimation(this.logo.game_title);
+		this.oTweenManager.blastAnimation(bomb);
 		this.oInputManager.buttonClick(this.play_button);
 		this.oInputManager.buttonClick(this.music_button);
 		this.oInputManager.buttonClick(this.music_button);

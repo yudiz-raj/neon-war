@@ -13,6 +13,7 @@
             "type": "Image",
             "id": "2302b960-414a-494c-93f7-d8568c13d6bf",
             "label": "background",
+            "scope": "CLASS",
             "texture": {
                 "key": "background"
             },

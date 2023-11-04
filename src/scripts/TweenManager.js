@@ -2,7 +2,7 @@ class TweenManager {
     constructor(oScene) {
         this.oScene = oScene;
     }
-    blastAnimation(target, title) {
+    blastAnimation(target) {
         let targetX = target.x;
         let angle = target.angle;
         target.x == 1150 ? targetX = -121 : targetX = 1150;
@@ -15,51 +15,17 @@ class TweenManager {
             delay: 1000,
             onComplete: () => {
                 target.setScale(1.5);
-                this.titleAnimation(title);
                 this.oScene.oSoundManager.playSound(this.oScene.oSoundManager.bombBlastSound, false);
+                this.oScene.tankCamera.shake(200, 0.004);
                 target.anims.play("blastAnimation", true).once('animationcomplete', () => {
                     target.destroy();
                     const bomb = this.oScene.add.sprite(targetX, -52, "fire-1");
                     bomb.angle = -angle;
                     this.oScene.container_bombs.add(bomb);
-                    this.blastAnimation(bomb, title);
+                    this.blastAnimation(bomb);
                 });
             }
         });
-    }
-    titleAnimation(target) {
-        target.shake(200, 0.02)
-        // this.oScene.tweens.add({
-        //     targets: target,
-        //     angle: 20,
-        //     scale: { from: 1, to: 1.06 },
-        //     duration: 300,
-        //     // delay: 2000,
-        //     yoyo: true,
-        //     // repeat: -1,
-        //     // repeatDelay: 1500,
-        // });
-        // this.oScene.add.tween({
-        //     targets: target,
-        //     angle: -3,
-        //     duration: 10,
-        //     ease: "Power2",
-        //     yoyo: true,
-        //     repeate: 2,
-        //     onComplete: () => {
-        //         this.oScene.add.tween({
-        //             targets: target,
-        //             angle: 3,
-        //             duration: 10,
-        //             ease: "Power2",
-        //             yoyo: true,
-        //             repeate: 2,
-        //             onComplete: () => {
-        //                 target.setAngle(0);
-        //             }
-        //         });
-        //     }
-        // });
     }
     bombAnimation(bomb) {
         this.oScene.tweens.add({
